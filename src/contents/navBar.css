@@ -1,0 +1,15 @@
+.navBtn {
+    @apply px-4 py-2 hover:bg-sky-400 text-lg font-bold
+  }
+  
+  .active {
+    @apply navBtn bg-sky-500 text-white
+  }
+  
+  .pending {
+    @apply navBtn
+  }
+  
+  .inactive {
+    @apply navBtn text-sky-800
+  }

@@ -1,0 +1,3 @@
+.btn-atten {
+    @apply text-lg font-bold text-sky-800 btn my-1 w-52 btn-success
+}
