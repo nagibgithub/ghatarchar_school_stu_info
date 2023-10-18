@@ -1,65 +1,68 @@
-import { useForm } from 'react-hook-form';
-
 
 const AddImage = () => {
-    const { register, handleSubmit } = useForm();
 
-    const onSubmit = data => {
 
-        const formData = new FormData();
-        formData.append('image', data.image[0])
-        console.log(data);
+
+    const handleTeacherInfoForm = e => {
+        e.preventDefault();
+        const form = e.target;
+        const teacher_name = form.name.value;
+        const teacher_email = form.email.value;
+        const teacher_mobile = form.mobile.value;
+        const teacher_position = form.position.value;
+        const teacher_data = { teacher_name, teacher_email, teacher_mobile, teacher_position };
+
+        const url = `https://school-student-info-client.vercel.app/teacher-info`;
+        fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(teacher_data) }).then(res => res.json()).then(data => console.log(data));
 
 
     };
 
 
+
     return (
-        <div className="w-full px-10">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-control w-full mb-4">
-                    <label className="label">
-                        <span className="label-text font-semibold">Recipe Name*</span>
-                    </label>
-                    <input type="text" placeholder="Recipe Name"
-                        {...register("name", { required: true, maxLength: 120 })}
-                        className="input input-bordered w-full " />
-                </div>
-                <div className="flex my-4">
-                    <div className="form-control w-full ">
-                        <label className="label">
-                            <span className="label-text">Category*</span>
-                        </label>
-                        <select defaultValue="Pick One" {...register("category", { required: true })} className="select select-bordered">
-                            <option disabled>Pick One</option>
-                            <option>Pizza</option>
-                            <option>Soup</option>
-                            <option>Salad</option>
-                            <option>Dessert</option>
-                            <option>Desi</option>
-                            <option>Drinks</option>
-                        </select>
+        <div>
+            <form className="p-2" onSubmit={handleTeacherInfoForm}>
+
+                <label className="label" htmlFor="name">Teacher Name: </label>
+                <input className="input input-bordered w-full max-w-xs capitalize" type="text" name="name" id="name" placeholder="Type Full Name" required />
+                <br />
+                <label className="label" htmlFor="email">Teacher Email: </label>
+                <input className="input input-bordered w-full max-w-xs" type="email" name="email" id="email" placeholder="example@gmail.com" required />
+                <br />
+                <label className="label" htmlFor="mobile">Teacher Mobile: </label>
+                <input className="input input-bordered w-full max-w-xs" type="tel" name="mobile" id="mobile" placeholder="01*********" required minLength={11} maxLength={11} />
+                <br />
+                <div className="my-3">
+
+                    <h1>Teacher Role</h1>
+                    <div className="flex gap-2 my-3">
+                        <div className="border rounded-xl px-1 shadow-lg flex justify-center items-center">
+                            <label className="pr-2" htmlFor="position-admin">Admin</label>
+                            <input type="radio" value="admin" name="position" id="position-admin" />
+                        </div>
+                        <div className="border rounded-xl px-1 shadow-lg flex justify-center items-center">
+                            <label className="pr-2" htmlFor="position-assistant">Assistant</label>
+                            <input type="radio" value="assistant" name="position" id="position-assistant" />
+                        </div>
+                        <div className="border rounded-xl px-1 shadow-lg flex justify-center items-center">
+                            <label className="pr-2" htmlFor="position-teacher">Teacher</label>
+                            <input type="radio" value="teacher" name="position" id="position-teacher" />
+                        </div>
+                        <div className="border rounded-xl px-1 shadow-lg flex justify-center items-center">
+                            <label className="pr-2" htmlFor="position-others">Others</label>
+                            <input type="radio" value="others" name="position" id="position-others" />
+                        </div>
                     </div>
-                    <div className="form-control w-full ml-4">
-                        <label className="label">
-                            <span className="label-text font-semibold">Price*</span>
-                        </label>
-                        <input type="number" {...register("price", { required: true })} placeholder="Type here" className="input input-bordered w-full " />
-                    </div>
                 </div>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Recipe Details</span>
-                    </label>
-                    <textarea {...register("recipe", { required: true })} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+                <br />
+
+
+                <div className="flex justify-center items-center">
+                    <input className="btn btn-block btn-info" type="submit" value="Submit Data" />
                 </div>
-                <div className="form-control w-full my-4">
-                    <label className="label">
-                        <span className="label-text">Item Image*</span>
-                    </label>
-                    <input type="file" {...register("image", { required: true })} className="file-input file-input-bordered w-full " />
-                </div>
-                <input className="btn btn-sm mt-4" type="submit" value="Add Item" />
+
+
             </form>
         </div>
     );

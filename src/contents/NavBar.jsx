@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./navBar.css"
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
@@ -9,7 +9,6 @@ import { AuthContext } from "../context/AuthProvider";
 const NavBar = () => {
 
     const { userInfo, loading } = useContext(AuthContext);
-
     const navOptions = [
         { path: "/", element: "Home" },
         { path: "/attendence", element: "Attendence" },
@@ -25,21 +24,21 @@ const NavBar = () => {
             </div>
 
             {/* user Info bar */}
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center text-lg font-serif font-semibold mb-5">
                 {
                     loading ?
                         <h1>Loading...!</h1>
                         :
-                        userInfo?
-                        <div>
-                            {
+                        userInfo ?
+                            <div className="flex justify-center items-center gap-2 ">
                                 <h1>{userInfo.displayName}</h1>
-                            }
-                        </div>
-                        :
-                        <div>
-                            <h1>You are not logged in</h1>
-                        </div>
+                                <Link to={"/login"}><img className="rounded-full w-16 border-4 border-blue-300" src={userInfo.photoURL} alt={userInfo.displayName} /></Link>
+                            </div>
+                            :
+                            <div className="flex justify-center items-center gap-2">
+                                <h1 className="font-sans">You are not logged in</h1>
+                                <Link to={"/login"} className="btn btn-success font-sans font-bold">Login</Link>
+                            </div>
                 }
             </div>
             <div className="flex justify-center">

@@ -1,4 +1,3 @@
-import "./attendence.css";
 import { Link } from "react-router-dom";
 
 const Attendence = () => {
@@ -16,10 +15,12 @@ const Attendence = () => {
     return (
         <div className="flex flex-col justify-center items-center">
 
+
+
             <h1 className="text-3xl font-bold text-green-700 py-5">Select Your Class</h1>
             <div className="flex flex-col">
                 {
-                    studentBatchInfo.map((pd, index) => <Link to={`/attendence/class/${pd.value}`} key={index}><button onClick={() => localStorage.clear()} className="btn-atten">{pd.batchClass}</button></Link>)
+                    studentBatchInfo.map((pd, index) => <Link to={`/attendence/class/${pd.value}`} key={index}><button onClick={() => localStorage.clear()} className="text-lg font-bold text-sky-800 btn my-1 w-52 btn-success">{pd.batchClass}</button></Link>)
                 }
             </div>
 

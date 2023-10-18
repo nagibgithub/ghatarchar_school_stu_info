@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const StudentTable = ({ student }) => {
 
-    const { school_id, Name } = student;
+    const { school_id, stu_name } = student;
     
 
     const batchToClass = {
@@ -18,9 +18,9 @@ const StudentTable = ({ student }) => {
     const result = batchToClass[school_id.toString().split('')[0] + school_id.toString().split('')[1]];
 
     return (
-        <tr className="hover:bg-slate-400">
+        <tr className="hover:bg-slate-400 rounded-lg shadow-md bg-sky-100">
             <td><Link to={`/stu_payment/${school_id}`}>{school_id}</Link></td>
-            <td><Link to={`/stu_payment/${school_id}`}>{Name}</Link></td>
+            <td><Link to={`/stu_payment/${school_id}`}>{stu_name}</Link></td>
             <td><Link to={`/stu_payment/${school_id}`}>{result}</Link></td>
         </tr>
     );

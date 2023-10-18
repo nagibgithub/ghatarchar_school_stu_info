@@ -4,12 +4,14 @@ const Home = () => {
 
     const navOptions = [
         { path: "/", element: "Home" },
+        { path: "/attendence", element: "Attendence" },
+        { path: "/previous_attendence", element: "Previous" },
+        { path: "/teachers", element: "Teacher List" },
         { path: "/stu_entry", element: "Student Data Entry" },
         { path: "/add_image", element: "Add Image" },
         { path: "/all_present", element: "All Present" },
-        { path: "/attendence", element: "Attendence" },
         { path: "/login", element: "Login" },
-        { path: "/stu_payment", element: "Student Payment" }
+        { path: "/stu_payment", element: "Student Payment" },
     ];
 
     return (
