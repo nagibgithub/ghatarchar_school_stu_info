@@ -1,20 +1,11 @@
-.school-name {
-  @apply font-black text-center text-lg text-blue-900
+.status_active {
+    @apply common_status_button border-green-800 bg-green-200 text-green-800
 }
 
-.input-student-name {
-  @apply border rounded-xl p-2 shadow-xl outline-none
+.status_inactive {
+    @apply common_status_button border-red-800 bg-red-200 text-red-800
 }
 
-.form-div {
-  @apply border border-blue-900 p-5 shadow-lg rounded-2xl
+.common_status_button {
+    @apply border-2 font-semibold
 }
-
-.submit-btn {
-  @apply border-2 px-6 py-2 shadow-lg rounded-2xl
-}
-
-.form-div div {
-  @apply my-5
-}
-

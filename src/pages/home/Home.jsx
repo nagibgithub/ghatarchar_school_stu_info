@@ -2,26 +2,23 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
 
-    const navOptions = [
-        { path: "/", element: "Home" },
+    const linkButtons = [
+        { path: "/add_student", element: "Add New Student", status: true },
+        { path: "/exam", element: "Exam" },
+        { path: "/all_teachers", element: "All Users" },
         { path: "/attendence", element: "Attendence" },
-        { path: "/previous_attendence", element: "Previous" },
-        { path: "/teachers", element: "Teacher List" },
-        { path: "/stu_entry", element: "Student Data Entry" },
-        { path: "/add_image", element: "Add Image" },
-        { path: "/all_present", element: "All Present" },
+        { path: "/all_student_info", element: "All Students" },
+        { path: "/all_days", element: "All Days" },
         { path: "/login", element: "Login" },
-        { path: "/stu_payment", element: "Student Payment" },
     ];
 
+
     return (
-        <>
-            <div className="mx-auto max-w-max flex flex-col justify-center items-center gap-2 my-10">
-                {
-                    navOptions.map((nav, index) => <Link key={index} to={nav.path}><button className="btn btn-accent text-lg font-bold w-60">{nav.element}</button></Link>)
-                }
-            </div>
-        </>
+        <div className="flex flex-col justify-center items-center gap-1 mb-5">
+            {
+                linkButtons.map((btn, index) => <Link key={index} to={btn.path}><button className={`${btn.status ? "btn-error" : "btn-info"} btn w-48 font-bold text-sky-950`}>{btn.element}</button></Link>)
+            }
+        </div>
     );
 };
 

@@ -22,7 +22,6 @@ const removeFromDb = id => {
     sessionStorage.setItem("id", JSON.stringify(newArr));
 };
 
-
 export {
     addToDb,
     removeFromDb
