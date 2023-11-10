@@ -15,24 +15,13 @@ const StudentList = ({ pd, changeStudentList }) => {
 
     const handleGenderFemale = id => { setGenderLoading(true); axios.patch(`https://school-student-info-client.vercel.app/student_gender_update/${id}`, { gender: "female" }).then(res => { res.data.modifiedCount === 1 && setGenderStatus("female"); setGenderLoading(false) }).catch(err => { console.log(err); setGenderLoading(false) }) };
     const handleGenderMale = id => { setGenderLoading(true); axios.patch(`https://school-student-info-client.vercel.app/student_gender_update/${id}`, { gender: "male" }).then(res => { res.data.modifiedCount === 1 && setGenderStatus("male"); setGenderLoading(false) }).catch(err => { console.log(err); setGenderLoading(false) }) };
-    const handleStatusChange = id => { setLoading(true); axios.patch(`https://school-student-info-client.vercel.app/student_status_change/${id}`, { active_status: !status }).then(res => { res.data.modifiedCount === 1 && setStatus(!status); setLoading(false); }).catch(err => { console.log(err); setLoading(false) }); };
+    const handleStatusChange = id => { setLoading(true); axios.patch(`https://school-student-info-client.vercel.app/student_status_change/${id}`, { active_status: !status }).then(res => { res.data.modifiedCount === 1 && setStatus(!status); setLoading(false); }).catch(err => { console.log(err); setLoading(false) }) };
     const handleStudentDelete = id => {
-        Swal.fire({
-            title: `${pd.stu_name} will be removed...!`,
-            text: "Are you sure?",
-            showConfirmButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Delete",
-            confirmButtonColor: "#ff0000"
-        }).then(res => {
+        Swal.fire({ title: `${pd.stu_name} will be removed...!`, text: "Are you sure?", showConfirmButton: true, showCancelButton: true, confirmButtonText: "Delete", confirmButtonColor: "#ff0000" }).then(res => {
             if (res.isConfirmed === true) {
                 setDeleteLoading(true);
                 Swal.fire({
-                    title: 'Submit Delete Code',
-                    input: 'password',
-                    inputLabel: 'Password',
-                    showCancelButton: true,
-                    confirmButtonText: 'Look up',
+                    title: 'Submit Delete Code', input: 'password', inputLabel: 'Password', showCancelButton: true, confirmButtonText: 'Look up',
                     inputValidator: (value) => {
                         if (!value) {
                             return 'You need to write something!'
@@ -44,7 +33,6 @@ const StudentList = ({ pd, changeStudentList }) => {
                         if (result.value === "7317279") {
                             axios.delete(`https://school-student-info-client.vercel.app/delete_stu/${id}`).then(res => {
                                 if (res.data.deletedCount === 1) {
-                                    // console.log(res.data);
                                     setDeleteLoading(false);
                                     changeStudentList(id);
                                 }
@@ -53,11 +41,7 @@ const StudentList = ({ pd, changeStudentList }) => {
                                 setDeleteLoading(false);
                             });
                         } else {
-                            Swal.fire({
-                                title: "Code is not matched",
-                                text: `${pd.stu_name} is not removed`,
-                                timer: 2000
-                            })
+                            Swal.fire({ title: "Code is not matched", text: `${pd.stu_name} is not removed`, timer: 2000 });
                             setDeleteLoading(false);
                         }
                         setDeleteLoading(false);
@@ -71,7 +55,7 @@ const StudentList = ({ pd, changeStudentList }) => {
         }).catch(err => {
             console.log(err);
             setDeleteLoading(false);
-        })
+        });
     };
 
     return (
@@ -90,7 +74,7 @@ const StudentList = ({ pd, changeStudentList }) => {
                     }
                 </div>
             </div>
-            <hr className={`${status ? "status_active" : "status_inactive"} my-2`} />
+            <hr className={`${status ? "status_active" : "status_inactive"} my-2 rounded-full`} />
             <div>
                 {
                     loadingGender ?
@@ -125,7 +109,7 @@ const StudentList = ({ pd, changeStudentList }) => {
                                 </div>
                 }
             </div>
-            <hr className={`${status ? "status_active" : "status_inactive"} my-2`} />
+            <hr className={`${status ? "status_active" : "status_inactive"} my-2 rounded-full`} />
             <div className="grid grid-cols-2 justify-center items-center text-center">
                 <div className="col-span-1">
                     {
@@ -154,7 +138,7 @@ const StudentList = ({ pd, changeStudentList }) => {
                 <div className="col-span-1">
                     {
                         loading ?
-                        <button className="btn btn-error btn-circle"><FontAwesomeIcon icon={faArrowsRotate} spin/></button>
+                            <button className="btn btn-error btn-circle"><FontAwesomeIcon icon={faArrowsRotate} spin /></button>
                             :
                             pd.batch_no === "24" ?
                                 loadingDelete ?

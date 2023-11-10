@@ -43,27 +43,20 @@ const AddStudent = () => {
             const admission_dataEntry = loggedUser.uid;
             const admission_date = (new Date()).getTime();
             const admission_info = { admission_date, admission_dataEntry, admission_message };
-            Swal.fire({
-                title: `Id: ${school_id} <br/> ${stu_name} <br/> Class: ${batchName[batchId]} <br/> Gender: ${gender} <br/> Mobile: ${mobile_no}`,
-                showConfirmButton: true,
-                showCancelButton: true
-            }).then(res => {
+            Swal.fire({ title: `Id: ${school_id} <br/> ${stu_name} <br/> Class: ${batchName[batchId]} <br/> Gender: ${gender} <br/> Mobile: ${mobile_no}`, showConfirmButton: true, showCancelButton: true }).then(res => {
                 if (res.isConfirmed === true) {
                     const result = { school_id, stu_name, gender, batch_no, mobile_no, religion, admission_info };
                     const url = "https://school-student-info-client.vercel.app/add_new_student";
                     axios.post(url, result).then(res => console.log(res.data)).catch(err => console.log(err))
-                    Swal.fire({
-                        title: `${stu_name} is added <br/> Id: ${school_id}`,
-                        showConfirmButton: true,
-                    }).then(res => {
+                    Swal.fire({ title: `${stu_name} is added <br/> Id: ${school_id}`, showConfirmButton: true }).then(res => {
                         if (res.isConfirmed) {
-                            navigate(`/add_student`)
+                            navigate(`/add_student/select_class`);
                         }
-                        navigate(`/add_student`)
+                        navigate(`/add_student/select_class`);
                     });
-                    navigate(`/add_student`)
+                    navigate(`/add_student/select_class`);
                 }
-            })
+            });
         }
     };
 

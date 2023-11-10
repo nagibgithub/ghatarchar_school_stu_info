@@ -7,7 +7,7 @@ const AddStuHome = () => {
 
     return (
         <div>
-            <StudentsBatchesButton btnLink={`/add_student`} mainTitle={mainTitle} subTitle={subTitle} batchArr={["24"]}></StudentsBatchesButton>
+            <StudentsBatchesButton btnLink={`/add_student/batch`} mainTitle={mainTitle} subTitle={subTitle} batchArr={["24"]}></StudentsBatchesButton>
         </div>
     );
 };

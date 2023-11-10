@@ -4,7 +4,7 @@ const StudentStatus = () => {
 
     return (
         <div>
-            <StudentsBatchesButton btnLink={"/all_student_info_batch"} mainTitle={"Student Personal Information"} subTitle={"Select the class"} batchArr={['24', "23", "22"]}></StudentsBatchesButton>
+            <StudentsBatchesButton btnLink={"/all_student_info_batch"} mainTitle={"Student Personal Information"} subTitle={"Select the class"} batchArr={['24', "23", "22", "21", "20", "19"]}></StudentsBatchesButton>
         </div>
     );
 };

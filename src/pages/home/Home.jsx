@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 const Home = () => {
 
     const linkButtons = [
-        { path: "/add_student", element: "Add New Student", status: true },
+        { path: "/add_student/select_class", element: "Add New Student", status: true },
         { path: "/exam", element: "Exam" },
         { path: "/all_teachers", element: "All Users" },
         { path: "/attendence", element: "Attendence" },
         { path: "/all_student_info", element: "All Students" },
         { path: "/all_days", element: "All Days" },
         { path: "/login", element: "Login" },
+        { path: "/example", element: "Demo" },
     ];
 
 
