@@ -12,7 +12,7 @@ const UserClassAccess = ({ classAccessArr, teacherID }) => {
     const [errMessage, setErrorMessage] = useState(null);
     useEffect(() => {
         setLoadingBatch(true);
-        const url = 'http://localhost:3000/student_batches_arr';
+        const url = 'https://school-student-info-client.vercel.app/student_batches_arr';
         axios.get(url).then(data => { setBatches(data.data.reverse()); setLoadingBatch(false) }).catch(err => { console.log(err); setErrorMessage(err.message); setLoadingBatch(false); });
         setSelectedValue(classAccessArr);
     }, [classAccessArr]);
@@ -39,7 +39,7 @@ const UserClassAccess = ({ classAccessArr, teacherID }) => {
             if (res.isConfirmed) {
                 setLoadingBatch(true);
 
-                const url = `http://localhost:3000/user_status/class_permisison_update/${id}`;
+                const url = `https://school-student-info-client.vercel.app/user_status/class_permisison_update/${id}`;
                 const arrPars = selectedValue.map(ele => parseInt(ele)).sort().reverse();
                 const arrString = arrPars.map(ele => ele.toString());
                 axios.patch(url, arrString).then(res => {
