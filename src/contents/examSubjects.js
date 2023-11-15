@@ -1,5 +1,22 @@
-const examSixSevenSubject = ["English", "Bangla", "Math", "Science", "Religion", "Digital", "Health"];
-const examEightSubject = ["English_1st", "English_2nd", "Bangla", "Math", "Science", "Religion", "ICT", "BGS"];
+const examSixSevenSubject = [
+    { subValue: "English", subject: "English" },
+    { subValue: "Bangla", subject: "Bangla" },
+    { subValue: "Math", subject: "Math" },
+    { subValue: "Science", subject: "Science" },
+    { subValue: "Religion", subject: "Religion" },
+    { subValue: "Digital", subject: "Digital" },
+    { subValue: "Health", subject: "Health" }
+];
+const examEightSubject = [
+    { subValue: "English_1st", subject: "English_1st" },
+    { subValue: "English_2nd", subject: "English_2nd" },
+    { subValue: "Bangla", subject: "Bangla" },
+    { subValue: "Math", subject: "Math" },
+    { subValue: "Science", subject: "Science" },
+    { subValue: "Religion", subject: "Religion" },
+    { subValue: "ICT", subject: "ICT" },
+    { subValue: "BGS", subject: "BGS" }
+];
 const examNineTenSubject = [
     { subValue: "English_1st", subject: "English 1st Paper" },
     { subValue: "English_2nd", subject: "English 2nd Paper" },
@@ -17,6 +34,6 @@ const examNineTenSubject = [
     { subValue: "Economics", subject: "Economics" },
     { subValue: "Geography", subject: "Geography" }
 ];
-const examTitle = ["Final_2023","1st_Eva_2024"];
+const examTitle = ["Final_2023", "1st_Eva_2024"];
 
 export { examSixSevenSubject, examEightSubject, examNineTenSubject, examTitle };

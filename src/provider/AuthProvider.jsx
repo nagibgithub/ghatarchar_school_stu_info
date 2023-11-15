@@ -48,12 +48,12 @@ const AuthProvider = ({ children }) => {
             setLoading(true);
             if (user) {
                 setLoggedUser(user);
-                axios.get(`https://school-student-info-client.vercel.app/teacher_uid_check/${user.uid}`).then(res => {
+                axios.get(`http://localhost:3000/teacher_uid_check/${user.uid}`).then(res => {
                     if (res.data.message === false) {
-                        axios.post("https://school-student-info-client.vercel.app/teacher-info", { teacher_name: user.displayName, teacher_email: user.email, teacher_uid: user.uid, teacher_photo: user.photoURL, teacher_idCreation_at: user.metadata.createdAt, teacher_lastLogin_at: [user.metadata.lastLoginAt] }).then(res => res.data.insertedId ? toast.success("New Id Created") : toast.error("Something is going wrong")).catch(err => { console.log(err); toast.error(err.message); });
+                        axios.post("http://localhost:3000/teacher-info", { teacher_name: user.displayName, teacher_email: user.email, teacher_uid: user.uid, teacher_photo: user.photoURL, teacher_idCreation_at: user.metadata.createdAt, teacher_lastLogin_at: [user.metadata.lastLoginAt] }).then(res => res.data.insertedId ? toast.success("New Id Created") : toast.error("Something is going wrong")).catch(err => { console.log(err); toast.error(err.message); });
                     } else if (res.data.lastLogin !== user.metadata.lastLoginAt) {
                         const lastLoginAtTime = user.metadata.lastLoginAt;
-                        axios.patch(`https://school-student-info-client.vercel.app/teacher_lastlogin/${user.uid}`, { lastLoginAtTime }).then(res => res.data.modifiedCount === 1 ? toast.success("Logged information updated") : toast.error("Something is wrong")).catch(err => { console.log(err); toast.error(err.message) });
+                        axios.patch(`http://localhost:3000/teacher_lastlogin/${user.uid}`, { lastLoginAtTime }).then(res => res.data.modifiedCount === 1 ? toast.success("Logged information updated") : toast.error("Something is wrong")).catch(err => { console.log(err); toast.error(err.message) });
                     }
                 })
             }

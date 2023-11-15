@@ -17,6 +17,7 @@ import AddStuHome from "../pages/add_student/AddStuHome";
 import ExamHome from "../pages/exam/ExamHome";
 import ExamBatch from "../pages/exam/ExamBatch";
 import ExamplePage from "../pages/example_page/Example";
+import UserDetails from "../pages/all_teachers_list/UserDetails";
 
 const router = createBrowserRouter([
     {
@@ -29,31 +30,32 @@ const router = createBrowserRouter([
 
             { path: "/login", element: <Login></Login> },
 
-
+            // add New Students
             { path: "/add_student/select_class", element: <PrivateRoute><AddStuHome></AddStuHome></PrivateRoute> },
             { path: "/add_student/batch/:batch", element: <PrivateRoute><AddStudent></AddStudent></PrivateRoute> },
 
-
+            // exam numbers
             { path: "/exam", element: <PrivateRoute><ExamHome></ExamHome></PrivateRoute> },
             { path: "/exam/batch/:batchId", element: <PrivateRoute><ExamBatch></ExamBatch></PrivateRoute> },
 
-            
-            { path: "/all_teachers", element: <PrivateRoute><AllTeachers></AllTeachers></PrivateRoute> },
+            // users
+            { path: "/users", element: <PrivateRoute><AllTeachers></AllTeachers></PrivateRoute> },
+            { path: "/users/:id", element: <PrivateRoute><UserDetails></UserDetails></PrivateRoute> },
 
-
+            // attendence
             { path: "/attendence", element: <PrivateRoute><Attendence></Attendence></PrivateRoute> },
             { path: "/attendence_today/:batchId", element: <PrivateRoute><PresentToday></PresentToday></PrivateRoute> },
-           
-           
+
+            // students information
             { path: "/all_student_info", element: <PrivateRoute><StudentStatus></StudentStatus></PrivateRoute> },
             { path: "/student_info/:id", element: <PrivateRoute><StudentDetails></StudentDetails></PrivateRoute> },
             { path: "/all_student_info_batch/:batchId", element: <PrivateRoute><BatchAllStuInfo></BatchAllStuInfo></PrivateRoute> },
-           
-           
+
+            // all days information
             { path: "/all_days", element: <PrivateRoute><AllDay></AllDay></PrivateRoute> },
             { path: "/batch/:batch", element: <PrivateRoute><BatchAttendence></BatchAttendence></PrivateRoute> },
-            
-            
+
+
             { path: "/example", element: <ExamplePage></ExamplePage> },
         ]
     }

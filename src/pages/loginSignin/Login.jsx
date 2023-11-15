@@ -49,7 +49,7 @@ const LoggedUserDataShow = () => {
 
     useEffect(() => {
         setDataLoading(true);
-        const url = `https://school-student-info-client.vercel.app/teacher_info_uid/${loggedUser?.uid}`;
+        const url = `http://localhost:3000/teacher_info_uid/${loggedUser?.uid}`;
         axios.get(url).then(data => { setLoggedUserData(data.data); setDataLoading(false); }).catch(err => console.log(err));
     }, [loggedUser]);
 

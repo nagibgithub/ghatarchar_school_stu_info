@@ -9,7 +9,7 @@ const NavBar = () => {
     const navOptions = [
         { path: "/", element: "Home" },
         { path: "/attendence", element: "Attendence" },
-        { path: "/all_days", element: "All Days" },
+        // { path: "/all_days", element: "All Days" },
     ];
 
     const { loggedUser, loading } = useContext(AuthContext);
@@ -46,7 +46,7 @@ const NavBar = () => {
                 }
             </div>
             <hr className="border border-blue-600 my-3 w-full" />
-            <div className="my-5">
+            <div className="my-5 font-semibold">
                 {nav}
             </div>
         </div>

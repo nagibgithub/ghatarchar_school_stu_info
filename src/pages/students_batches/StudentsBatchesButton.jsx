@@ -11,6 +11,9 @@ const StudentsBatchesButton = ({ btnLink, batchArr, mainTitle, subTitle }) => {
     const [batches, setBatches] = useState([]);
     const [loadingBatch, setLoadingBatch] = useState(true);
     const [errMessage, setErrorMessage] = useState(null);
+
+    // setBatches(["17", "18", "19", "20", "21", "22", "23", "24"]);
+
     useEffect(() => {
         setLoadingBatch(true);
         const url = 'https://school-student-info-client.vercel.app/student_batches_arr';

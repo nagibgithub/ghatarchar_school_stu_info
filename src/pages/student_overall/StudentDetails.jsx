@@ -13,9 +13,9 @@ const StudentDetails = () => {
     const [status, setStatus] = useState(null);
     const stuId = useParams().id;
 
-    useEffect(() => { setLoading(true); axios.get(`https://school-student-info-client.vercel.app/student_id/${stuId}`).then(res => { setStuData(res.data); setStatus(res.data.active_status); setLoading(false); }).catch(err => console.log(err)) }, [stuId]);
+    useEffect(() => { setLoading(true); axios.get(`http://localhost:3000/student_id/${stuId}`).then(res => { setStuData(res.data); setStatus(res.data.active_status); setLoading(false); }).catch(err => console.log(err)) }, [stuId]);
 
-    const handleStatusChange = id => { setLoading(true); axios.patch(`https://school-student-info-client.vercel.app/student_status_change/${id}`, { active_status: !status }).then(res => { console.log(res.data); res.data.modifiedCount === 1 && setStatus(!status); setLoading(false); }).catch(err => { console.log(err); setLoading(false) }); };
+    const handleStatusChange = id => { setLoading(true); axios.patch(`http://localhost:3000/student_status_change/${id}`, { active_status: !status }).then(res => { console.log(res.data); res.data.modifiedCount === 1 && setStatus(!status); setLoading(false); }).catch(err => { console.log(err); setLoading(false) }); };
 
     const handleUpdateStuInfo = e => {
         e.preventDefault();
@@ -39,7 +39,7 @@ const StudentDetails = () => {
                     const religion = e.target.religion.value;
                     const stu_dateOfBirth = e.target.dateOfBirth.value;
 
-                    axios.patch(`https://school-student-info-client.vercel.app/student_infoUpdate/${stuData._id}`, { stu_name, stu_birthCerNum, father_name, mother_name, mobile_no, mobile_2, gender, religion, stu_dateOfBirth }).then(res => {
+                    axios.patch(`http://localhost:3000/student_infoUpdate/${stuData._id}`, { stu_name, stu_birthCerNum, father_name, mother_name, mobile_no, mobile_2, gender, religion, stu_dateOfBirth }).then(res => {
                         console.log(res.data);
                         if (res.data.modifiedCount === 1) {
                             Swal.fire({ title: "Data is updated" });
