@@ -1,6 +1,7 @@
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useRouteError } from "react-router-dom";
+import BackPage from "../../contents/BackPage";
 
 const ErrorPage = () => {
 
@@ -19,10 +20,9 @@ const ErrorPage = () => {
                 {err.data && <h1>{err.data}</h1>}
             </div>
             <hr className="border border-sky-600 w-2/3 my-5" />
-            <div className="">
-                <Link to={"/"}>
-                    <button className="btn btn-success"><FontAwesomeIcon icon={faHome} /> Go to Home Page</button>
-                </Link>
+            <div className="flex gap-2">
+                <div><BackPage></BackPage></div>
+                <Link to={"/"}><button className="btn btn-success"><FontAwesomeIcon icon={faHome} /> Go to Home Page</button></Link>
             </div>
         </div>
     );

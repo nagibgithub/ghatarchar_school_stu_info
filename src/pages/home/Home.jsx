@@ -1,32 +1,42 @@
-import { Link } from "react-router-dom";
 import useAdmin from "../../hooks/useAdmin";
 import Loading from "../../contents/Loading";
+import MainButton from "../../contents/MainButton";
+import { PiStudentFill } from "react-icons/pi";
+import { BiSpreadsheet } from "react-icons/bi";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { FcTodoList } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
-    const { loading, adminStatus } = useAdmin();
+    const { adminLoading } = useAdmin();
+
 
     const linkButtons = [
-        { path: "/add_student/select_class", element: "Add New Student", status: true, privateButton: false },
-        { path: "/exam", element: "Exam", privateButton: false },
-        { path: "/users", element: "All Users", privateButton: true },
-        { path: "/attendence", element: "Attendence", privateButton: false },
-        { path: "/all_student_info", element: "All Students", status: true, privateButton: false },
-        { path: "/all_days", element: "All Days", privateButton: false },
-        { path: "/login", element: "Login", privateButton: false },
-        { path: "/example", element: "Demo", privateButton: false },
+        { path: "/todo", btn_name: <FcTodoList />, title: "Todo Message" },
+        { path: "/attendence", btn_name: <BiSpreadsheet />, title: "Attendence" },
+        { path: "/students", btn_name: <PiStudentFill />, title: "Students" },
+        { path: "/users", btn_name: <FaChalkboardTeacher />, title: "Teachers" },
+        { path: "/users", btn_name: <MdAdminPanelSettings />, title: "Admin" },
     ];
 
     return (
         <div className="flex flex-col justify-center items-center gap-1 mb-5">
+            <h1 className="my-4 text-center font-bold text-xl text-sky-800">Home Page</h1>
             {
-                loading ?
+                adminLoading ?
                     <Loading></Loading>
                     :
-                    linkButtons.map((btn, index) => <Link key={index} to={btn.privateButton === true ? adminStatus === true ? btn.path : "/" : btn.path}><button className={`${btn.status ? "btn-error" : "btn-info"} btn w-48 font-bold text-sky-950`}>{btn.element}</button></Link>)
+                    <div className="grid grid-cols-2 justify-center items-center gap-2">
+                        {
+                            linkButtons.map((ele, index) => <Link to={ele.path} key={index}><MainButton title={ele.title} btn_name={ele.btn_name}></MainButton></Link>)
+                        }
+                    </div>
             }
         </div >
     );
 };
 
 export default Home;
+

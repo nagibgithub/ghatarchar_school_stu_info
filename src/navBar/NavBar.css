@@ -1,9 +1,9 @@
 .common-button {
-    @apply px-6 hover:bg-sky-300 py-4 border-b-2 hover:border-b-sky-300
+    @apply hover:bg-sky-300 py-2 font-bold hover:rounded-t-xl w-24
 }
 
 .active {
-    @apply common-button border-b-sky-800 font-bold
+    @apply common-button border-b-sky-200 text-sky-700 bg-sky-200 rounded-t-xl
 }
 
 .pending {
@@ -14,12 +14,12 @@
     @apply common-button
 }
 
-.nav-container {
-    @apply my-5 container mx-auto flex flex-col justify-center items-center
-}
+/* .nav-container {
+    @apply 
+} */
 
 .school-title {
-    @apply flex items-center justify-center gap-1 md:gap-3 container mx-auto
+    @apply flex gap-1 md:gap-3 mx-auto shadow-md py-2 items-center justify-center
 }
 
 .school-title h1 {
@@ -27,5 +27,5 @@
 }
 
 .school-title img {
-    @apply w-16 border-2 flex justify-end rounded-full p-1 shadow-md border-blue-800 bg-white
+    @apply w-16 border-2 flex rounded-full p-1 shadow-md border-blue-800 bg-white
 }

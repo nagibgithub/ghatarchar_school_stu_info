@@ -1,15 +1,15 @@
 .present-stu-div {
-    @apply bg-green-200 border-green-400 
+    @apply bg-green-200 border-green-600 shadow-green-300
 }
 
 .absent-stu-div {
-    @apply bg-red-200 border-red-400
+    @apply bg-red-200 border-red-600 shadow-red-300
 }
 
-.present-sign{
-    @apply bg-green-400 text-green-800 border-green-700 border-2
+.present-sign {
+    @apply bg-green-400 text-green-800 border-green-700 border-2 shadow-md shadow-green-600
 }
 
-.absent-sign{
+.absent-sign {
     @apply bg-red-400 text-red-800 border-2 border-red-700
 }

@@ -5,18 +5,18 @@ import Swal from "sweetalert2";
 
 const useAdmin = () => {
 
-    const [loading, setLoading] = useState(true);
+    const [adminLoading, setAdminLoading] = useState(true);
     const [adminStatus, setAdminStatus] = useState(false);
     const { loggedUser } = useAuth();
 
     useEffect(() => {
-        setLoading(true);
+        setAdminLoading(true);
         const url = `https://school-student-info-client.vercel.app/user_admin/${loggedUser.uid}`;
-        axios.get(url).then(res => { setAdminStatus(res.data.is_admin); setLoading(false) }).catch(err => { console.log(err); Swal.fire({ title: err.message }); setLoading(false); });
+        axios.get(url).then(res => { setAdminStatus(res.data.is_admin); setAdminLoading(false) }).catch(err => { console.log(err); Swal.fire({ title: err.message }); setAdminLoading(false); });
     }, [loggedUser]);
 
     const result = {
-        loading,
+        adminLoading,
         adminStatus
     }
 

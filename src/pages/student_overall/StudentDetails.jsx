@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../../contents/Loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import PageTile from "../../contents/PageTile";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import StudentMainButtons from "../../contents/StudentMainButtons";
 
 const StudentDetails = () => {
     const [loading, setLoading] = useState(true);
@@ -13,9 +15,16 @@ const StudentDetails = () => {
     const [status, setStatus] = useState(null);
     const stuId = useParams().id;
 
-    useEffect(() => { setLoading(true); axios.get(`https://school-student-info-client.vercel.app/student_id/${stuId}`).then(res => { setStuData(res.data); setStatus(res.data.active_status); setLoading(false); }).catch(err => console.log(err)) }, [stuId]);
+    useEffect(() => { setLoading(true); axios.get(`https://school-student-info-client.vercel.app/student/${stuId}`).then(res => { setStuData(res.data); setStatus(res.data.active_status); setLoading(false); }).catch(err => { console.log(err); Swal.fire({ title: err.message }) }) }, [stuId]);
 
-    const handleStatusChange = id => { setLoading(true); axios.patch(`https://school-student-info-client.vercel.app/student_status_change/${id}`, { active_status: !status }).then(res => { console.log(res.data); res.data.modifiedCount === 1 && setStatus(!status); setLoading(false); }).catch(err => { console.log(err); setLoading(false) }); };
+    const handleStatusChange = id => {
+        Swal.fire({ icon: "question", text: `${status ? "Active" : "InActive"} to ${!status ? "Active" : "InActive"}`, showConfirmButton: true, confirmButtonText: `Make ${!status ? "Active" : "InActive"}`, showCancelButton: true }).then(result => {
+            if (result.isConfirmed) {
+                setLoading(true);
+                axios.patch(`https://school-student-info-client.vercel.app/student_status_change/${id}`, { active_status: !status }).then(res => { res.data.modifiedCount === 1 && setStatus(!status); setLoading(false); }).catch(err => { console.log(err); setLoading(false) });
+            }
+        });
+    };
 
     const handleUpdateStuInfo = e => {
         e.preventDefault();
@@ -24,9 +33,7 @@ const StudentDetails = () => {
         } if (e.target.gender.value === "") {
             toast.error("Set The Gender. 'Male' or 'Female'", { duration: 1500, style: { border: '2px solid #ff0000', padding: '18px', color: '#212121', }, iconTheme: { primary: '#ff0000', secondary: '#FFFAEE', }, });
         } else {
-            Swal.fire({
-                title: "Do you want to update?", showConfirmButton: true, showCancelButton: true, confirmButtonText: "Update"
-            }).then(res => {
+            Swal.fire({ title: "Do you want to update?", showConfirmButton: true, showCancelButton: true, confirmButtonText: "Update" }).then(res => {
                 if (res.isConfirmed) {
                     setLoading(true);
                     const stu_name = e.target.stuName.value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -38,9 +45,8 @@ const StudentDetails = () => {
                     const gender = e.target.gender.value;
                     const religion = e.target.religion.value;
                     const stu_dateOfBirth = e.target.dateOfBirth.value;
-
-                    axios.patch(`https://school-student-info-client.vercel.app/student_infoUpdate/${stuData._id}`, { stu_name, stu_birthCerNum, father_name, mother_name, mobile_no, mobile_2, gender, religion, stu_dateOfBirth }).then(res => {
-                        console.log(res.data);
+                    const url = `https://school-student-info-client.vercel.app/student_infoUpdate/${stuData._id}`;
+                    axios.patch(url, { stu_name, stu_birthCerNum, father_name, mother_name, mobile_no, mobile_2, gender, religion, stu_dateOfBirth }).then(res => {
                         if (res.data.modifiedCount === 1) {
                             Swal.fire({ title: "Data is updated" });
                             setLoading(false);
@@ -50,39 +56,43 @@ const StudentDetails = () => {
                         }
                     }).catch(err => {
                         console.log(err);
-                        Swal.fire(err.message);
+                        Swal.fire({
+                            title: err.message,
+                            icon: "error",
+                            text: "Data can not be updated"
+                        });
                         setLoading(false);
                     });
-                } else {
-                    toast.error("Maybe Something is going wrong...!");
-                    setLoading(false);
                 }
-            }).catch(err => {
-                console.log(err);
-                Swal.fire(err.message);
-                setLoading(false);
             });
-            setLoading(false);
         }
     };
 
     return (
-        <div>
+        <div className="mx-1">
+            <StudentMainButtons studentButtonLoading={loading}></StudentMainButtons>
             <div className="flex items-center">
-                <button onClick={() => history.back()} className="btn btn-info"><FontAwesomeIcon icon={faArrowLeft} /></button>
+                <PageTile link={loading ? "" : `/all_student_info_batch/${stuData?.batch_no}`} subTitle={loading ? "Loading..." : stuData.stu_name} mainTitle={stuId}></PageTile>
             </div>
             <div>
                 {
                     loading ?
-                        <Loading></Loading>
+                        <>
+                            <div className="flex justify-center my-2 text-lg font-bold text-sky-900">
+                                <h1>Update Student Information</h1>
+                            </div>
+                            <Loading></Loading>
+                        </>
                         :
                         <div>
 
-                            <form onSubmit={e => handleUpdateStuInfo(e)} className="bg-sky-100 my-5 shadow-md border-2 rounded-xl px-4 py-2 border-sky-400 ">
-                                <div className="font-bold text-xl text-center">
-                                    <h1>{stuData.stu_name}</h1>
-                                    <h1>School Id: <span className="text-sky-800">{stuData.school_id}</span></h1>
-                                </div>
+                            <div className="flex justify-center my-2 text-lg font-bold text-sky-900">
+                                <h1>Update Student Information</h1>
+                            </div>
+
+                            <NextPreviousButton stuId={stuData.school_id}></NextPreviousButton>
+
+                            <form onSubmit={e => handleUpdateStuInfo(e)} className="bg-sky-100 shadow-md border-2 rounded-xl px-4 py-2 border-sky-400 ">
 
                                 {/* student name */}
                                 <div className="form-control w-full mx-auto my-2 max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
@@ -94,6 +104,12 @@ const StudentDetails = () => {
                                 <div className="form-control w-full mx-auto my-2 max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
                                     <label htmlFor="stuBirthCertificate" className="label"><span className="text-md font-bold text-sky-950">Student Birth Certificate Number: </span></label>
                                     <input name="stuBirthCertificate" min={1} step={1} type="number" id="stuBirthCertificate" placeholder="Type Birth Certificate Number" defaultValue={stuData.stu_birthCerNum ? stuData.stu_birthCerNum : null} className="input capitalize input-bordered w-full max-w-xs font-semibold" />
+                                </div>
+
+                                {/* date of birth */}
+                                <div className="form-control w-full mx-auto my-2 max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
+                                    <label htmlFor="dateOfBirth" className="label"><span className="text-md font-bold text-sky-950">Date of Birth</span></label>
+                                    <input defaultValue={stuData.stu_dateOfBirth ? stuData.stu_dateOfBirth : null} type="date" name="dateOfBirth" id="dateOfBirth" className="input input-bordered w-full max-w-xs cursor-pointer" />
                                 </div>
 
                                 {/* student father's name */}
@@ -120,14 +136,8 @@ const StudentDetails = () => {
                                     <input name="mobile2" type="tel" id="mobile2" defaultValue={stuData.mobile_2 ? stuData.mobile_2 : null} placeholder="01********" pattern="[0]{1}[1]{1}[3-9]{1}[0-9]{8}" min={11} max={11} className="font-mono input capitalize input-bordered w-full max-w-xs font-semibold" />
                                 </div>
 
-                                {/* date of birth */}
-                                <div className="form-control w-full mx-auto my-2 max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
-                                    <label htmlFor="dateOfBirth" className="label"><span className="text-md font-bold text-sky-950">Date of Birth</span></label>
-                                    <input defaultValue={stuData.stu_dateOfBirth ? stuData.stu_dateOfBirth : null} type="date" name="dateOfBirth" id="dateOfBirth" className="input input-bordered w-full max-w-xs cursor-pointer" />
-                                </div>
-
                                 {/* gender change */}
-                                <div className="px-4 py-2 my-2 border-gray-300 form-control w-full max-w-xs shadow-md rounded-lg bg-sky-200">
+                                <div className="form-control w-full mx-auto my-2 max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
                                     <div className="py-2">
                                         <h1 className="text-md font-bold text-sky-950">Select Gender:</h1>
                                     </div>
@@ -150,7 +160,7 @@ const StudentDetails = () => {
                                 </div>
 
                                 {/* religion change */}
-                                <div className="px-4 py-2 my-2 border-gray-300 form-control w-full max-w-xs shadow-md rounded-lg bg-sky-200">
+                                <div className="form-control w-full mx-auto my-2 max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
                                     <div className="py-2">
                                         <h1 className="text-md font-bold text-sky-950">Select Religion:</h1>
                                     </div>
@@ -176,16 +186,15 @@ const StudentDetails = () => {
                                 <div className="form-control flex w-full mx-auto my-2 max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
                                     <input className="btn btn-primary" type="submit" value="Submit" />
                                 </div>
-
                             </form>
+
+                            <NextPreviousButton stuId={stuData.school_id}></NextPreviousButton>
 
 
                             <hr className="border-sky-600 my-3" />
-                            <h1>{stuData.school_id}</h1>
-                            <h1>{stuData.stu_name}</h1>
-                            <div className="flex items-center gap-3 border-2 rounded ">
-                                <h1>Student Active Status {status ? "Active" : "In Active"}</h1>
-                                <button onClick={() => handleStatusChange(stuData._id)} className={`btn ${status ? "btn-error" : "btn-success"}`}>{status ? "Make In Active" : "Make Active"}</button>
+                            <div className="flex flex-col justify-center shadow-md items-center gap-3 border-2 border-sky-400 rounded-lg p-2 bg-sky-100">
+                                <h1 className="text-xl font-semibold">Student Status: <span className={`${status ? "text-green-600" : "text-red-600"} font-bold`}>{status ? "Active" : "In Active"}</span></h1>
+                                <button onClick={() => handleStatusChange(stuData._id)} className={`btn ${status ? "btn-error" : "btn-success"}`}>{status ? "Make In-active" : "Make Active"}</button>
                             </div>
                         </div>
                 }
@@ -195,3 +204,20 @@ const StudentDetails = () => {
 };
 
 export default StudentDetails;
+
+
+const NextPreviousButton = ({ stuId }) => {
+
+    // console.log(parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? "nai" : "ache");
+
+
+    return (
+        <div className="flex justify-between m-2">
+            {
+                // stuId.toString()
+            }
+            <Link to={parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? "" : `/student_info/${stuId - 1}`}><button disabled={parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? true : false} className="rounded-lg bg-sky-400 text-sky-800 btn font-bold text-center flex justify-center items-center shadow-md w-28 gap-2 h-12">{parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? "" : <><h1><FontAwesomeIcon icon={faArrowLeft} /></h1><h1>{stuId - 1}</h1></>}</button></Link>
+            <Link to={`/student_info/${stuId + 1}`}><button className="rounded-lg bg-sky-400 btn text-sky-800 font-bold text-center flex justify-center items-center shadow-md w-28 gap-2 h-12"><h1>{stuId + 1}</h1><h1><FontAwesomeIcon icon={faArrowRight} /></h1></button></Link>
+        </div>
+    );
+};

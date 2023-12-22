@@ -28,21 +28,29 @@ const useDateAndTime = () => {
             const parsInputNumber = parseInt(inputNumber);
             if (parsInputNumber > 12) {
                 return { hour: parsInputNumber - 12, amPm: "PM" }
+            } else if (parsInputNumber === 0) {
+                return { hour: 12, amPm: "AM" }
             } else if (parsInputNumber === 12) {
                 return { hour: parsInputNumber, amPm: "PM" }
             } else if (parsInputNumber < 12) {
                 return { hour: parsInputNumber, amPm: "AM" }
-            } else if (parsInputNumber === 0) {
-                return { hour: 1, amPm: "AM" }
             }
-
-
         };
+
+        if (dateFormate === "dateOnly") {
+            const monthsArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            if (threeDaysBack.getDate().toString().length === 1) {
+                return `0${threeDaysBack.getDate()}-${monthsArray[threeDaysBack.getMonth()]}-${threeDaysBack.getFullYear()}`;
+            } else {
+                return `${threeDaysBack.getDate()}-${monthsArray[threeDaysBack.getMonth()]}-${threeDaysBack.getFullYear()}`;
+            }
+        }
 
         if (dateFormate === "shortTime") {
             return `${twoDigit(hour12Formate(threeDaysBack.getHours()).hour)}:${twoDigit(threeDaysBack.getMinutes())} ${hour12Formate(threeDaysBack.getHours()).amPm}`
-
         }
+
 
     };
 

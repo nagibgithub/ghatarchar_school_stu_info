@@ -1,9 +1,10 @@
+
 const batchName = {
-    "24": "New Six",
-    "23": "Six",
-    "22": "Seven",
-    "21": "Eight",
-    "20": "Nine",
+    "24": "Six",
+    "23": "Seven",
+    "22": "Eight",
+    "21": "Nine",
+    "20": "New Ten",
     "19": "SSC - 24",
     "18": "SSC - 23",
     "17": "SSC - 22"

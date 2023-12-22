@@ -1,11 +1,11 @@
 .status_active {
-    @apply common_status_button border-green-800 bg-green-200 text-green-800
+    @apply common_status_button bg-green-200 text-green-800 shadow-green-400
 }
 
 .status_inactive {
-    @apply common_status_button border-red-800 bg-red-200 text-red-800
+    @apply common_status_button bg-red-200 text-red-800 shadow-red-400
 }
 
 .common_status_button {
-    @apply border-2 font-semibold
+    @apply font-semibold shadow-md
 }

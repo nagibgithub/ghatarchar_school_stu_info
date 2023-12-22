@@ -3,11 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../contents/Loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { batchName } from "../../contents/batchAndClass";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../provider/AuthProvider";
+import PageTile from "../../contents/PageTile";
+import StudentMainButtons from "../../contents/StudentMainButtons";
 
 const AddStudent = () => {
 
@@ -39,42 +39,52 @@ const AddStudent = () => {
             const batch_no = batchId;
             const school_id = parseInt(lastBatchId);
             const mobile_no = e.target.mobile.value;
+            const mobile_2 = e.target.mobile2.value;
             const admission_message = e.target.optionalText.value;
             const admission_dataEntry = loggedUser.uid;
             const admission_date = (new Date()).getTime();
             const admission_info = { admission_date, admission_dataEntry, admission_message };
             Swal.fire({ title: `Id: ${school_id} <br/> ${stu_name} <br/> Class: ${batchName[batchId]} <br/> Gender: ${gender} <br/> Mobile: ${mobile_no}`, showConfirmButton: true, showCancelButton: true }).then(res => {
                 if (res.isConfirmed === true) {
-                    const result = { school_id, stu_name, gender, batch_no, mobile_no, religion, admission_info };
+                    const result = { school_id, stu_name, gender, batch_no, mobile_no, mobile_2, religion, admission_info };
                     const url = "https://school-student-info-client.vercel.app/add_new_student";
-                    axios.post(url, result).then(res => console.log(res.data)).catch(err => console.log(err))
-                    Swal.fire({ title: `${stu_name} is added <br/> Id: ${school_id}`, showConfirmButton: true }).then(res => {
-                        if (res.isConfirmed) {
-                            navigate(`/add_student/select_class`);
+                    axios.post(url, result).then(res => {
+                        if (res.data.insertedId) {
+                            Swal.fire({ title: `Id: ${school_id}`, text: `${stu_name} is added`, icon: "success", showConfirmButton: true, confirmButtonText: "Ok", showDenyButton: true, denyButtonColor: "green", denyButtonText: "Update Full Info", }).then(result => {
+                                if (result.isDenied) {
+                                    navigate(`/student_info/${res.data.insertedId}`);
+                                } else {
+                                    navigate(`/students/add_student`);
+                                }
+                            });
+                        } else {
+                            Swal.fire({ icon: "error", text: `${school_id} is not added, Pls try again.` });
                         }
-                        navigate(`/add_student/select_class`);
+                    }).catch(err => {
+                        console.log(err);
+                        Swal.fire({ icon: "error", title: err.message, text: `${school_id} is not added, Pls try again.` });
                     });
-                    navigate(`/add_student/select_class`);
                 }
             });
         }
     };
 
     return (
-        <div className="my-5">
+        <div className="my-5 px-1">
+            <StudentMainButtons studentButtonLoading={loading}></StudentMainButtons>
+            <div className="flex items-center">
+                <PageTile link="/students/add_student" mainTitle={"Add New Student"}></PageTile>
+            </div>
             {
                 loading ?
                     <Loading></Loading>
                     :
                     <div>
-                        <div className="flex items-center">
-                            <button onClick={() => history.back()} className="btn btn-info"><FontAwesomeIcon icon={faArrowLeft} /></button>
-                        </div>
-                        <div className="px-4 my-5 py-2 rounded-lg shadow-lg bg-sky-100 mx-5">
+                        <div className="px-4 my-2 py-2 rounded-lg shadow-lg bg-sky-100 mx-5">
                             <h1 className="text-center text-3xl font-bold">Class: <span className="text-blue-900">{batchName[batchId]}</span></h1>
                             <h1 className="text-center text-3xl font-bold">New id: <span className="text-blue-900">{lastBatchId}</span></h1>
                         </div>
-                        <form onSubmit={(e) => handleNewStuInfo(e)} className="flex flex-col justify-center items-center gap-3 p-5 rounded-3xl bg-sky-100 shadow-lg">
+                        <form onSubmit={(e) => handleNewStuInfo(e)} className="flex flex-col justify-center items-center gap-3 py-5 rounded-3xl bg-sky-100 shadow-lg">
 
                             {/* student name */}
                             <div className="form-control w-full max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
@@ -86,6 +96,12 @@ const AddStudent = () => {
                             <div className="form-control w-full max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
                                 <label htmlFor="mobile" className="label"><span className="text-xl font-bold text-sky-950">Contact Number: </span></label>
                                 <input name="mobile" type="tel" id="mobile" placeholder="01********" pattern="[0]{1}[1]{1}[3-9]{1}[0-9]{8}" min={11} max={11} className="input input-bordered w-full max-w-xs" required />
+                            </div>
+
+                            {/* mobile number - 2*/}
+                            <div className="form-control w-full max-w-xs shadow-md p-2 rounded-lg bg-sky-200">
+                                <label htmlFor="mobile2" className="label"><span className="text-xl font-bold text-sky-950">Contact Number - 2: (Optional)</span></label>
+                                <input name="mobile2" type="tel" id="mobile2" placeholder="01********" pattern="[0]{1}[1]{1}[3-9]{1}[0-9]{8}" min={11} max={11} className="input input-bordered w-full max-w-xs" />
                             </div>
 
                             {/* gender change */}

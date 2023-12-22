@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import Loading from "../../contents/Loading";
 import { Link } from "react-router-dom";
 import { batchName } from "../../contents/batchAndClass";
+import PageTile from "../../contents/PageTile";
+import StudentMainButtons from "../../contents/StudentMainButtons";
 
-const StudentsBatchesButton = ({ btnLink, batchArr, mainTitle, subTitle }) => {
-
-
+const StudentsBatchesButton = ({ link = "/", btnLink, batchArr, mainTitle, subTitle }) => {
 
     const [batches, setBatches] = useState([]);
     const [loadingBatch, setLoadingBatch] = useState(true);
@@ -22,6 +22,7 @@ const StudentsBatchesButton = ({ btnLink, batchArr, mainTitle, subTitle }) => {
 
     return (
         <div className="flex flex-col justify-center items-center gap-2 my-5">
+            <StudentMainButtons studentButtonLoading={loadingBatch}></StudentMainButtons>
             {
                 loadingBatch ?
                     <Loading></Loading>
@@ -30,11 +31,7 @@ const StudentsBatchesButton = ({ btnLink, batchArr, mainTitle, subTitle }) => {
                         <h1 className="text-3xl font-bold text-red-600">{errMessage}</h1>
                         :
                         <>
-                            <div className="bg-green-100 mb-5 font-bold text-green-700 px-8 py-6 text-3xl text-center rounded-3xl shadow-lg">
-                                <h1>{mainTitle && mainTitle}</h1>
-                                <hr />
-                                <h1>{subTitle && subTitle}</h1>
-                            </div>
+                            <PageTile link={link} mainTitle={mainTitle} subTitle={subTitle}></PageTile>
                             {
                                 batches.map((pd, index) => <Link className={batchArr === undefined ? "contents" : batchArr.includes(pd) ? "contents" : "hidden"} key={index} to={`${btnLink}/${pd}`}><button disabled={batchArr === undefined ? false : batchArr.includes(pd) ? false : true} onClick={() => sessionStorage.clear("id")} className="btn btn-success w-40 font-bold text-lg">{batchName[pd]}</button></Link>)
                             }

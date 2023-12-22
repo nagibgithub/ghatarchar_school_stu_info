@@ -1,0 +1,11 @@
+.login-input {
+   @apply rounded p-2 font-semibold text-sky-700 
+}
+
+.login-input-div {
+    @apply flex flex-col p-4 shadow-md bg-sky-200 rounded-xl cursor-pointer
+}
+
+.login-input-label{
+    @apply font-semibold pb-2
+}

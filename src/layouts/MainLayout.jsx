@@ -6,7 +6,7 @@ import Footer from "../navBar/Footer";
 const MainLayout = () => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
-            <div className="container mx-auto px-2 ">
+            <div className="">
                 <NavBar></NavBar>
                 <Outlet></Outlet>
                 <Toaster />

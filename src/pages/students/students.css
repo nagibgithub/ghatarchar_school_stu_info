@@ -1,0 +1,42 @@
+.custom-checkbox {
+    position: relative;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    position: absolute;
+    left: -9999px;
+    /* Hide the default checkbox */
+}
+
+.custom-checkbox label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 30px;
+    /* Adjust this value based on the size of your custom check */
+}
+
+.custom-checkbox label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    /* Adjust the size of your custom check */
+    height: 20px;
+    /* Adjust the size of your custom check */
+    border: 2px solid #000;
+    /* Adjust the border color */
+    background-color: #fff;
+    /* Adjust the background color */
+}
+
+.custom-checkbox input[type="checkbox"]:checked+label:before {
+    content: '\2713';
+    /* Unicode checkmark character */
+    font-size: 16px;
+    /* Adjust the font size */
+    line-height: 18px;
+    /* Adjust the line height */
+    color: #000;
+    /* Adjust the checkmark color */
+}
