@@ -2,11 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PageTile from "../../contents/PageTile";
-import { batchName } from "../../contents/batchAndClass";
 import StudentCard from "./StudentCard";
 import StudentCardLoading from "../../contents/StudentCardLoading";
 import "./students.css";
 import StudentMainButtons from "../../contents/StudentMainButtons";
+import BatchClassName from "../../contents/BatchClassName";
 
 const BatchStudentListAttendence = () => {
 
@@ -32,7 +32,7 @@ const BatchStudentListAttendence = () => {
     return (
         <div className="flex flex-col mx-2">
             <StudentMainButtons studentButtonLoading={dataLoading}></StudentMainButtons>
-            <PageTile link="/students/attendence_info" mainTitle={"Student List"} subTitle={`Class: ${batchName[batchID]}`}></PageTile>
+            <PageTile link="/students/details_list" subTitle={"Student List"} mainTitle={<span>Class: <BatchClassName batchNo={batchID}/></span>}></PageTile>
             {
                 dataLoading ?
                     <div className="flex flex-col gap-3">

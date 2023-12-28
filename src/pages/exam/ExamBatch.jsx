@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../contents/Loading";
 import ExamStudent from "./ExamStudent";
-import { batchName } from "../../contents/batchAndClass";
 import { examEightSubject, examNineTenSubject, examSixSevenSubject, examTitle } from "../../contents/examSubjects";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import BatchClassName from "../../contents/BatchClassName";
 
 const ExamBatch = () => {
 
@@ -43,7 +43,7 @@ const ExamBatch = () => {
                         <div className="mb-5 font-bold">
                             <div className="text-xl px-4 py-2 bg-sky-100 mx-2 rounded-3xl shadow-md my-3 text-center">
                                 <h1 className="">Exam Data Entry</h1>
-                                <h1 className="">Class: <span className="text-sky-900">{batchName[batchId]}</span></h1>
+                                <h1 className="">Class: <span className="text-sky-900">{<BatchClassName batchNo={batchId}></BatchClassName>}</span></h1>
                             </div>
 
                             <div className="text-xl px-4 py-2 bg-sky-100 mx-2 rounded-3xl shadow-md my-3 text-center">

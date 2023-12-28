@@ -11,7 +11,7 @@ const StudentsHome = () => {
         { path: "/students/search", btn_name: <FaSearch />, title: "Stu Search", color: "bg-yellow-200 border-yellow-800 text-yellow-800" },
         { path: "/students/all_students", btn_name: <FaUserEdit />, title: "Update Info", color: "bg-sky-200 border-sky-800 text-sky-800" },
         { path: "/students/add_student", btn_name: <IoPersonAdd />, title: "Add New", color: "bg-red-200 border-red-800 text-red-800" },
-        { path: "/students/attendence_info", btn_name: <FaList />, title: "All Student", color: "bg-green-200 border-green-800 text-green-800" },
+        { path: "/students/details_list", btn_name: <FaList />, title: "All Student", color: "bg-green-200 border-green-800 text-green-800" },
     ];
 
     return (

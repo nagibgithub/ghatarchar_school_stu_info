@@ -6,9 +6,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useDateAndTime from "../../hooks/useDateAndTime";
 import UserClassAccess from "./UserClassAccess";
-import BackPage from "../../contents/BackPage";
 import { faRotate, faTrash } from "@fortawesome/free-solid-svg-icons";
 import HorizonLine from "../../contents/HorizonLine";
+import PageTile from "../../contents/PageTile";
 
 const UserDetails = () => {
 
@@ -74,7 +74,12 @@ const UserDetails = () => {
 
     return (
         <div>
-            <BackPage></BackPage>
+            {
+                loading ?
+                    <PageTile mainTitle="Loading...!" subTitle="Loading...!"></PageTile>
+                    :
+                    <PageTile link="/users" mainTitle={userData.teacher_name} subTitle={userData.teacher_email}></PageTile>
+            }
             {
                 loading ?
                     <Loading></Loading>
@@ -86,14 +91,12 @@ const UserDetails = () => {
                             <img className="w-fit" src={userData.teacher_photo} alt="" />
                         </div>
 
-                        <HorizonLine></HorizonLine>
 
-                        <div className="flex flex-col justify-center items-center">
+                        {/* <div className="flex flex-col justify-center items-center">
                             <h1 className="font-bold"><span className="text-2xl text-sky-900">{userData.teacher_name}</span></h1>
                             <h1 className="font-bold"><span className="text-sky-900 font-mono">{userData.teacher_email}</span></h1>
-                        </div>
+                        </div> */}
 
-                        <HorizonLine></HorizonLine>
 
                         <HorizonLine></HorizonLine>
 

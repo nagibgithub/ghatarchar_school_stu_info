@@ -29,6 +29,10 @@ import UpdateUser from "../pages/loginSignin/UpdateUser";
 import StudentsSearch from "../pages/students/StudentsSearch";
 import StudentDetailsInfo from "../pages/students/StudentDetailsInfo";
 import TodoHome from "../pages/todoList/TodoHome";
+import BatchNameChangeHome from "../pages/BatchNameChange/BatchNameChangeHome";
+import AdminOnlyHome from "../pages/adminOnly/AdminOnlyHome";
+import PaymentDataUploadHome from "../pages/paymentDataUpload/PaymentDataUploadHome";
+import StudentPaymentHome from "../pages/paymentDetails/StudentPaymentHome";
 
 const router = createBrowserRouter([
     {
@@ -46,8 +50,8 @@ const router = createBrowserRouter([
             { path: "/students/details/:id", element: <PrivateRoute><TeacherRoute><StudentDetailsInfo></StudentDetailsInfo></TeacherRoute></PrivateRoute> },
             { path: "/students/search", element: <PrivateRoute><TeacherRoute><StudentsSearch></StudentsSearch></TeacherRoute></PrivateRoute> },
             { path: "/students/all_students", element: <PrivateRoute><TeacherRoute><StudentStatus></StudentStatus></TeacherRoute></PrivateRoute> },
-            { path: "/students/attendence_info", element: <PrivateRoute><TeacherRoute><StudentsAttendence></StudentsAttendence></TeacherRoute></PrivateRoute> },
-            { path: "/students/attendence_info/:batchId", element: <PrivateRoute><TeacherRoute><BatchStudentListAttendence></BatchStudentListAttendence></TeacherRoute></PrivateRoute> },
+            { path: "/students/details_list", element: <PrivateRoute><TeacherRoute><StudentsAttendence></StudentsAttendence></TeacherRoute></PrivateRoute> },
+            { path: "/students/details_list/:batchId", element: <PrivateRoute><TeacherRoute><BatchStudentListAttendence></BatchStudentListAttendence></TeacherRoute></PrivateRoute> },
 
             // add New Students
             { path: "/students/add_student", element: <PrivateRoute><TeacherRoute><AddStuHome></AddStuHome></TeacherRoute></PrivateRoute> },
@@ -61,6 +65,18 @@ const router = createBrowserRouter([
             { path: "/users", element: <PrivateRoute><UsersHome></UsersHome></PrivateRoute> },
             { path: "/users/:id", element: <PrivateRoute><UserDetails></UserDetails></PrivateRoute> },
             { path: "/users_update/:id", element: <PrivateRoute><UpdateUser></UpdateUser></PrivateRoute> },
+
+            // admin use only
+            { path: "/admin_use_only", element: <PrivateRoute><AdminOnlyHome></AdminOnlyHome></PrivateRoute> },
+
+            // Payment data upload
+            { path: "/payment_data_upload", element: <PrivateRoute><PaymentDataUploadHome></PaymentDataUploadHome></PrivateRoute> },
+
+            // Payment details
+            { path: "/student_payment/:id", element: <PrivateRoute><StudentPaymentHome></StudentPaymentHome></PrivateRoute> },
+
+            // batch Name Change
+            { path: "/editBatchName", element: <PrivateRoute><BatchNameChangeHome></BatchNameChangeHome></PrivateRoute> },
 
             // attendence
             { path: "/attendence", element: <PrivateRoute><Attendence></Attendence></PrivateRoute> },

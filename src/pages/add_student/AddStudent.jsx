@@ -3,15 +3,16 @@ import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../contents/Loading";
-import { batchName } from "../../contents/batchAndClass";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../provider/AuthProvider";
 import PageTile from "../../contents/PageTile";
 import StudentMainButtons from "../../contents/StudentMainButtons";
+import BatchClassName from "../../contents/BatchClassName";
 
 const AddStudent = () => {
 
     const batchId = useParams().batch;
+
     const [lastBatchId, setLastBatchId] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ const AddStudent = () => {
             const admission_dataEntry = loggedUser.uid;
             const admission_date = (new Date()).getTime();
             const admission_info = { admission_date, admission_dataEntry, admission_message };
-            Swal.fire({ title: `Id: ${school_id} <br/> ${stu_name} <br/> Class: ${batchName[batchId]} <br/> Gender: ${gender} <br/> Mobile: ${mobile_no}`, showConfirmButton: true, showCancelButton: true }).then(res => {
+            Swal.fire({ title: `Id: ${school_id} <br/> ${stu_name} <br/> Gender: ${gender} <br/> Mobile: ${mobile_no}`, showConfirmButton: true, showCancelButton: true }).then(res => {
                 if (res.isConfirmed === true) {
                     const result = { school_id, stu_name, gender, batch_no, mobile_no, mobile_2, religion, admission_info };
                     const url = "https://school-student-info-client.vercel.app/add_new_student";
@@ -81,7 +82,7 @@ const AddStudent = () => {
                     :
                     <div>
                         <div className="px-4 my-2 py-2 rounded-lg shadow-lg bg-sky-100 mx-5">
-                            <h1 className="text-center text-3xl font-bold">Class: <span className="text-blue-900">{batchName[batchId]}</span></h1>
+                            <h1 className="text-center text-3xl font-bold">Class: <span className="text-blue-900">{<BatchClassName batchNo={batchId}></BatchClassName>}</span></h1>
                             <h1 className="text-center text-3xl font-bold">New id: <span className="text-blue-900">{lastBatchId}</span></h1>
                         </div>
                         <form onSubmit={(e) => handleNewStuInfo(e)} className="flex flex-col justify-center items-center gap-3 py-5 rounded-3xl bg-sky-100 shadow-lg">

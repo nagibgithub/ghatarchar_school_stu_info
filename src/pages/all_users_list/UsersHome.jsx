@@ -14,7 +14,10 @@ const UsersHome = () => {
         <div className="mx-2 mb-4">
             {
                 adminLoading ?
-                    <Loading></Loading>
+                    <>
+                        <PageTile mainTitle={"Loading"}></PageTile>
+                        <Loading></Loading>
+                    </>
                     :
                     !adminStatus ?
                         <div className="flex justify-center items-center text-center flex-col">
@@ -28,7 +31,10 @@ const UsersHome = () => {
                             <Link to={'/'}><MainButton btn_name={<FaHome />} title={"Return Home"}></MainButton></Link>
                         </div>
                         :
-                        <UserList></UserList>
+                        <>
+                            <PageTile mainTitle={"User List"} link="/admin_use_only"></PageTile>
+                            <UserList></UserList>
+                        </>
             }
         </div >
     );

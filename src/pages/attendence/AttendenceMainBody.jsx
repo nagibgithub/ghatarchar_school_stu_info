@@ -5,7 +5,7 @@ import StudentPresent from "./StudentPresent";
 import Swal from "sweetalert2";
 import axios from "axios";
 import PageTile from "../../contents/PageTile";
-import { batchName } from "../../contents/batchAndClass";
+import BatchClassName from "../../contents/BatchClassName";
 
 const AttendenceMainBody = ({ batchNo }) => {
 
@@ -18,12 +18,9 @@ const AttendenceMainBody = ({ batchNo }) => {
 
     const handleReset = () => Swal.fire({ title: "Are you sure?", text: "You want to reset all present", confirmButtonText: "Reset", showDenyButton: true, denyButtonText: "Cancel" }).then(res => { if (res.isConfirmed) { setLoading(true); sessionStorage.clear(); setTimeout(() => setLoading(false), 50); } });
 
-
-
-
     return (
         <div className="flex flex-col justify-center items-center">
-            <PageTile mainTitle={batchName[batchNo]} subTitle={loading ? "Loading...!" : errMessage ? "Error...!" : `Active Students: ${batchStudents.length}`}></PageTile>
+            <PageTile mainTitle={<BatchClassName batchNo={batchNo}></BatchClassName>} subTitle={loading ? "Loading...!" : errMessage ? "Error...!" : `Active Students: ${batchStudents.length}`}></PageTile>
             {
                 loading ?
                     <Loading></Loading>

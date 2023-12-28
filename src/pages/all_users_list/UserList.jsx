@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../contents/Loading";
-import { batchName } from "../../contents/batchAndClass";
+import BatchClassName from "../../contents/BatchClassName";
 
 const UserList = () => {
 
@@ -81,7 +81,7 @@ const Teacher = ({ teacher }) => {
             <hr className="border border-sky-600 my-2 rounded-full" />
             <div>
                 {
-                    permissions.class_teacher.map((ele, index) => <h1 key={index}>{batchName[ele]}</h1>)
+                    permissions.class_teacher.map((ele, index) => <h1 key={index}>{<BatchClassName batchNo={ele}></BatchClassName>}</h1>)
                 }
             </div>
         </div>

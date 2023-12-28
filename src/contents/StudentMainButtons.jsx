@@ -8,15 +8,15 @@ const StudentMainButtons = ({ studentButtonLoading }) => {
             {
                 studentButtonLoading ?
                     <>
-                        <button className="w-24 flex flex-col justify-center items-center h-20 bg-red-300 shadow-md rounded-xl gap-1"><h1 className="font-bold text-sm">Loading...!</h1></button>
-                        <button className="w-24 flex flex-col justify-center items-center h-20 bg-sky-300 shadow-md rounded-xl gap-1"><h1 className="font-bold text-sm">Loading...!</h1></button>
-                        <button className="w-24 flex flex-col justify-center items-center h-20 bg-green-300 shadow-md rounded-xl gap-1"><h1 className="font-bold text-sm">Loading...!</h1></button>
+                        <button className="w-24 flex flex-col justify-center items-center h-20 bg-gray-300 shadow-md rounded-xl gap-1"><h1 className="text-2xl"><IoPersonAdd /></h1><h1 className="text-xs font-semibold">Loading...!</h1></button>
+                        <button className="w-24 flex flex-col justify-center items-center h-20 bg-gray-300 shadow-md rounded-xl gap-1"><h1 className="text-2xl"><FaUserEdit /></h1><h1 className="text-xs font-semibold">Loading...!</h1></button>
+                        <button className="w-24 flex flex-col justify-center items-center h-20 bg-gray-300 shadow-md rounded-xl gap-1"><h1 className="text-2xl"><FaList /></h1><h1 className="text-xs font-semibold">Loading...!</h1></button>
                     </>
                     :
                     <>
                         <Link to={"/students/add_student/"}><button className="w-24 flex flex-col justify-center items-center h-20 bg-red-300 shadow-md rounded-xl gap-1"><h1 className="text-2xl"><IoPersonAdd /></h1><h1 className="text-xs font-semibold">Add New</h1></button></Link>
                         <Link to={`/students/all_students/`}><button className="w-24 flex flex-col justify-center items-center h-20 bg-sky-300 shadow-md rounded-xl gap-1"><h1 className="text-2xl"><FaUserEdit /></h1><h1 className="text-xs font-semibold">Update List</h1></button></Link>
-                        <Link to={`/students/attendence_info/`}><button className="w-24 flex flex-col justify-center items-center h-20 bg-green-300 shadow-md rounded-xl gap-1"><h1 className="text-2xl"><FaList /></h1><h1 className="text-xs font-semibold">All Students</h1></button></Link>
+                        <Link to={`/students/details_list/`}><button className="w-24 flex flex-col justify-center items-center h-20 bg-green-300 shadow-md rounded-xl gap-1"><h1 className="text-2xl"><FaList /></h1><h1 className="text-xs font-semibold">All Students</h1></button></Link>
                     </>
             }
         </div>

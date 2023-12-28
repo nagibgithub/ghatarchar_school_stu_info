@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import StudentList from "./StudentList";
 import { useParams } from "react-router-dom";
 import PageTile from "../../contents/PageTile";
-import { batchName } from "../../contents/batchAndClass";
 import StudentCardLoading from "../../contents/StudentCardLoading";
 import StudentMainButtons from "../../contents/StudentMainButtons";
+import BatchClassName from "../../contents/BatchClassName";
 
 const BatchAllStuInfo = () => {
 
@@ -43,7 +43,7 @@ const BatchAllStuInfo = () => {
         <div className="px-1">
             <StudentMainButtons studentButtonLoading={loading}></StudentMainButtons>
             <div className="flex items-center">
-                <PageTile link="/students/all_students" mainTitle={`Class: ${batchName[batchID]}`} subTitle={`Update Students Info`}></PageTile>
+                <PageTile link="/students/all_students" mainTitle={<span>Class: <BatchClassName batchNo={batchID}/></span>} subTitle={`Update Students Info`}></PageTile>
             </div>
             <div>
                 {

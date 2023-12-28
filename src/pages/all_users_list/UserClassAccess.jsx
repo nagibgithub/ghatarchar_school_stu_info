@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Loading from "../../contents/Loading";
-import { batchName } from "../../contents/batchAndClass";
 import Swal from "sweetalert2";
+import useBatchName from "../../hooks/useBatchName";
 
 const UserClassAccess = ({ classAccessArr, teacherID }) => {
 
+    const { batchNameData, batchNameLoading } = useBatchName();
     const [selectedValue, setSelectedValue] = useState([]);
     const [batches, setBatches] = useState([]);
     const [loadingBatch, setLoadingBatch] = useState(true);
@@ -18,6 +18,8 @@ const UserClassAccess = ({ classAccessArr, teacherID }) => {
     }, [classAccessArr]);
 
 
+
+    // console.log(batches, classAccessArr);
 
 
 
@@ -59,14 +61,26 @@ const UserClassAccess = ({ classAccessArr, teacherID }) => {
             <h1 className="text-sky-950 font-bold text-xl">Class Access Permission</h1>
             {
                 loadingBatch ?
-                    <Loading></Loading>
+                    <div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="flex gap-2 items-center"><input type="checkbox" className="checkbox checkbox-success" /><label className="cursor-pointer label font-bold text-sky-800">Loading...!</label></div>
+                        <div className="my-2">
+                            <button className="btn btn-success">Update Selected Class</button>
+                        </div>
+                    </div>
                     :
                     errMessage === null ?
                         <div>
                             {
                                 batches.map((ele, index) => <div key={index} className="flex gap-2 items-center">
                                     <input value={ele} className="checkbox checkbox-success" type="checkbox" name="classSelected" id={ele} onChange={e => handleChecked(e)} defaultChecked={selectedValue.includes(ele) === true ? true : false} />
-                                    <label className="cursor-pointer label font-bold text-sky-800" htmlFor={ele}>{batchName[ele]}</label>
+                                    <label className="cursor-pointer label font-bold text-sky-800" htmlFor={ele}>{batchNameLoading ? "Loading...!" : batchNameData[ele]}</label>
                                 </div>)
                             }
                             <div className="my-2">

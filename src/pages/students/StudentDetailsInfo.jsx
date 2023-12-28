@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import PageTile from "../../contents/PageTile";
-import { batchName } from "../../contents/batchAndClass";
 import Loading from "../../contents/Loading";
 import StudentsDetailsComponents from "../../contents/StudentsDetailsComponents";
 import useDateAndTime from "../../hooks/useDateAndTime";
@@ -11,6 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import StudentMainButtons from "../../contents/StudentMainButtons";
 import StuPaymentCard from "./StuPaymentCard";
+import NextAndPrevButton from "../../contents/NextAndPrevButton";
+import BatchClassName from "../../contents/BatchClassName";
 
 const StudentDetailsInfo = () => {
 
@@ -30,11 +31,12 @@ const StudentDetailsInfo = () => {
     return (
         <div className="mx-2">
             <StudentMainButtons studentButtonLoading={stuDataLoading}></StudentMainButtons>
+            <NextAndPrevButton stuId={stuId} btnLink={"students/details"}></NextAndPrevButton>
             {
                 stuDataLoading ?
                     <PageTile link="/students/search" mainTitle={"Loading..."} subTitle={"Loading..."}></PageTile>
                     :
-                    <PageTile link={`/students/attendence_info/${stuData.batch_no}`} mainTitle={stuData.school_id} subTitle={`Class: ${batchName[stuData.batch_no]}`}></PageTile>
+                    <PageTile link={`/students/details_list/${stuData.batch_no}`} mainTitle={stuData.school_id} subTitle={<span>Class: {<BatchClassName batchNo={stuData.batch_no}></BatchClassName>}</span>}></PageTile>
             }
             {
                 stuDataLoading ?
@@ -62,8 +64,6 @@ const StudentDetailsInfo = () => {
                             }
 
                         </div>
-
-
 
                         <div className="border-2 border-orange-600 bg-orange-200 rounded-3xl p-4 my-2">
                             {
@@ -96,6 +96,7 @@ const StudentDetailsInfo = () => {
                         </div>
                     </div>
             }
+            <NextAndPrevButton stuId={stuId} btnLink={"students/details"}></NextAndPrevButton>
         </div>
     );
 };

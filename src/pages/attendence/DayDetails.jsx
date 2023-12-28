@@ -6,8 +6,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useDateAndTime from "../../hooks/useDateAndTime";
 import useUserName from "../../hooks/useUserName";
-import { batchName } from "../../contents/batchAndClass";
 import StudentAttendCard from "./StudentAttendCard";
+import BatchClassName from "../../contents/BatchClassName";
 
 const DayDetails = () => {
 
@@ -34,7 +34,7 @@ const DayDetails = () => {
                             <Loading></Loading>
                             :
                             <h1 className="text-center font-bold text-2xl text-sky-800">
-                                Class: <span>{batchName[dayData.batch_no]}</span>
+                                Class: <span>{<BatchClassName batchNo={dayData.batch_no}></BatchClassName>}</span>
                             </h1>
                     }
                 </div>

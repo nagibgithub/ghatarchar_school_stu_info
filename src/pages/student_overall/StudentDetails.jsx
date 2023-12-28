@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Loading from "../../contents/Loading";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import PageTile from "../../contents/PageTile";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import StudentMainButtons from "../../contents/StudentMainButtons";
+import NextAndPrevButton from "../../contents/NextAndPrevButton";
 
 const StudentDetails = () => {
     const [loading, setLoading] = useState(true);
@@ -90,7 +89,7 @@ const StudentDetails = () => {
                                 <h1>Update Student Information</h1>
                             </div>
 
-                            <NextPreviousButton stuId={stuData.school_id}></NextPreviousButton>
+                            <NextAndPrevButton btnLink={"student_info"} stuId={stuData.school_id}></NextAndPrevButton>
 
                             <form onSubmit={e => handleUpdateStuInfo(e)} className="bg-sky-100 shadow-md border-2 rounded-xl px-4 py-2 border-sky-400 ">
 
@@ -188,7 +187,7 @@ const StudentDetails = () => {
                                 </div>
                             </form>
 
-                            <NextPreviousButton stuId={stuData.school_id}></NextPreviousButton>
+                            <NextAndPrevButton btnLink={"student_info"} stuId={stuData.school_id}></NextAndPrevButton>
 
 
                             <hr className="border-sky-600 my-3" />
@@ -204,20 +203,3 @@ const StudentDetails = () => {
 };
 
 export default StudentDetails;
-
-
-const NextPreviousButton = ({ stuId }) => {
-
-    // console.log(parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? "nai" : "ache");
-
-
-    return (
-        <div className="flex justify-between m-2">
-            {
-                // stuId.toString()
-            }
-            <Link to={parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? "" : `/student_info/${stuId - 1}`}><button disabled={parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? true : false} className="rounded-lg bg-sky-400 text-sky-800 btn font-bold text-center flex justify-center items-center shadow-md w-28 gap-2 h-12">{parseInt((stuId - 1).toString()[3] + (stuId - 1).toString()[4]) === 0 ? "" : <><h1><FontAwesomeIcon icon={faArrowLeft} /></h1><h1>{stuId - 1}</h1></>}</button></Link>
-            <Link to={`/student_info/${stuId + 1}`}><button className="rounded-lg bg-sky-400 btn text-sky-800 font-bold text-center flex justify-center items-center shadow-md w-28 gap-2 h-12"><h1>{stuId + 1}</h1><h1><FontAwesomeIcon icon={faArrowRight} /></h1></button></Link>
-        </div>
-    );
-};
