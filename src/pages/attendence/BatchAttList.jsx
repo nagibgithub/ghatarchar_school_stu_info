@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import Loading from "../../contents/Loading";
 import AttendenListCard from "./AttendenListCard";
 import PageTile from "../../contents/PageTile";
+import BatchClassName from "../../contents/BatchClassName";
 
 const BatchAttList = () => {
 
@@ -20,7 +21,7 @@ const BatchAttList = () => {
 
     return (
         <div>
-            <PageTile mainTitle={"All Attendence"}></PageTile>
+            <PageTile subTitle={"Attendence List"} mainTitle={<span>Class: <BatchClassName batchNo={batchId}></BatchClassName></span>}></PageTile>
             <div className="flex flex-col gap-2 my-4">
                 {
                     loading ?

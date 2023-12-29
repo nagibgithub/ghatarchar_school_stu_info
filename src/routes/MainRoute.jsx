@@ -33,6 +33,7 @@ import BatchNameChangeHome from "../pages/BatchNameChange/BatchNameChangeHome";
 import AdminOnlyHome from "../pages/adminOnly/AdminOnlyHome";
 import PaymentDataUploadHome from "../pages/paymentDataUpload/PaymentDataUploadHome";
 import StudentPaymentHome from "../pages/paymentDetails/StudentPaymentHome";
+import StudentsLayout from "../layouts/StudentsLayout";
 
 const router = createBrowserRouter([
     {
@@ -45,17 +46,7 @@ const router = createBrowserRouter([
 
             { path: "/login", element: <Login></Login> },
 
-            // Students 
-            { path: "/students", element: <PrivateRoute><TeacherRoute><StudentsHome></StudentsHome></TeacherRoute></PrivateRoute> },
-            { path: "/students/details/:id", element: <PrivateRoute><TeacherRoute><StudentDetailsInfo></StudentDetailsInfo></TeacherRoute></PrivateRoute> },
-            { path: "/students/search", element: <PrivateRoute><TeacherRoute><StudentsSearch></StudentsSearch></TeacherRoute></PrivateRoute> },
-            { path: "/students/all_students", element: <PrivateRoute><TeacherRoute><StudentStatus></StudentStatus></TeacherRoute></PrivateRoute> },
-            { path: "/students/details_list", element: <PrivateRoute><TeacherRoute><StudentsAttendence></StudentsAttendence></TeacherRoute></PrivateRoute> },
-            { path: "/students/details_list/:batchId", element: <PrivateRoute><TeacherRoute><BatchStudentListAttendence></BatchStudentListAttendence></TeacherRoute></PrivateRoute> },
 
-            // add New Students
-            { path: "/students/add_student", element: <PrivateRoute><TeacherRoute><AddStuHome></AddStuHome></TeacherRoute></PrivateRoute> },
-            { path: "/students/add_student/batch/:batch", element: <PrivateRoute><TeacherRoute><AddStudent></AddStudent></TeacherRoute></PrivateRoute> },
 
             // exam numbers
             { path: "/exam", element: <PrivateRoute><ExamHome></ExamHome></PrivateRoute> },
@@ -98,6 +89,24 @@ const router = createBrowserRouter([
 
 
             { path: "/example", element: <ExamplePage></ExamplePage> },
+        ]
+    },
+    {
+        path: "/students",
+        element: <StudentsLayout></StudentsLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            // Students 
+            { path: "/students", element: <PrivateRoute><TeacherRoute><StudentsHome></StudentsHome></TeacherRoute></PrivateRoute> },
+            { path: "/students/details/:id", element: <PrivateRoute><TeacherRoute><StudentDetailsInfo></StudentDetailsInfo></TeacherRoute></PrivateRoute> },
+            { path: "/students/search", element: <PrivateRoute><TeacherRoute><StudentsSearch></StudentsSearch></TeacherRoute></PrivateRoute> },
+            { path: "/students/all_students", element: <PrivateRoute><TeacherRoute><StudentStatus></StudentStatus></TeacherRoute></PrivateRoute> },
+            { path: "/students/details_list", element: <PrivateRoute><TeacherRoute><StudentsAttendence></StudentsAttendence></TeacherRoute></PrivateRoute> },
+            { path: "/students/details_list/:batchId", element: <PrivateRoute><TeacherRoute><BatchStudentListAttendence></BatchStudentListAttendence></TeacherRoute></PrivateRoute> },
+
+            // add New Students
+            { path: "/students/add_student", element: <PrivateRoute><TeacherRoute><AddStuHome></AddStuHome></TeacherRoute></PrivateRoute> },
+            { path: "/students/add_student/batch/:batch", element: <PrivateRoute><TeacherRoute><AddStudent></AddStudent></TeacherRoute></PrivateRoute> },
         ]
     }
 ]);

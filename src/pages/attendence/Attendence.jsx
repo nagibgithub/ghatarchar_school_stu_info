@@ -9,15 +9,14 @@ const Attendence = () => {
     const { adminLoading, adminStatus } = useAdmin();
     const { teacherClassLoading, classTeacher } = useClassPermission();
 
-
     if (adminLoading === true) {
         return (
             <Loading></Loading>
-        )
+        );
     } else if (adminLoading === false) {
         if (adminStatus === true) {
             return (
-                <StudentsBatchesButton btnLink={"/attendence/batch_info"} mainTitle={"Attendence"} subTitle={"Select The Class"}></StudentsBatchesButton>
+                <StudentsBatchesButton link="/students" btnLink={"/attendence/batch_info"} mainTitle={"Attendence"} subTitle={"Select The Class"}></StudentsBatchesButton>
             )
         } else {
             if (teacherClassLoading === true) {
@@ -38,7 +37,7 @@ const Attendence = () => {
                                     </div>
                                 </div>
                                 :
-                                <StudentsBatchesButton btnLink={"/attendence/batch_info"} mainTitle={"Attendence"} subTitle={"Select The Class"} batchArr={classTeacher}></StudentsBatchesButton>
+                                <StudentsBatchesButton link="/students" btnLink={"/attendence/batch_info"} mainTitle={"Attendence"} subTitle={"Select The Class"} batchArr={classTeacher}></StudentsBatchesButton>
                         }
                     </>
                 )

@@ -12,7 +12,7 @@ const BatchDetails = () => {
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <PageTile mainTitle={<BatchClassName batchNo={batchId}></BatchClassName>} subTitle={"Attendence"}></PageTile>
+            <PageTile mainTitle={<span>Class: <BatchClassName batchNo={batchId}></BatchClassName></span>} subTitle={"Attendence Page"}></PageTile>
             <div className="grid grid-cols-2 justify-center items-center gap-2">
                 <Link className="mx-auto" to={`/batch/${batchId}`}><MainButton btn_name={<FontAwesomeIcon icon={faUserPlus} />} title={"New"} backgroundColorCode="bg-red-200 border-red-800 text-red-900"></MainButton></Link>
                 <Link className="mx-auto" to={`/attendence_today/${batchId}`}><MainButton btn_name={<FontAwesomeIcon icon={faListCheck} />} title={"Last Atten"} backgroundColorCode="bg-green-200 text-green-800 border-green-800"></MainButton></Link>

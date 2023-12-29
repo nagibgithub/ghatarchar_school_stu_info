@@ -1,22 +1,22 @@
 import useAdmin from "../../hooks/useAdmin";
 import MainButton from "../../contents/MainButton";
 import { PiStudentFill } from "react-icons/pi";
-import { BiSpreadsheet } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";
-import { MdAdminPanelSettings } from "react-icons/md";
-import { FcTodoList } from "react-icons/fc";
+import { MdAdminPanelSettings, MdMessage } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
 
     const { adminLoading, adminStatus } = useAdmin();
 
     const linkButtons = [
-        { path: "/todo", btn_name: <FcTodoList />, title: "Todo Message", adminPannel: false },
-        { path: "/attendence", btn_name: <BiSpreadsheet />, title: "Attendence", adminPannel: false },
-        { path: "/students", btn_name: <PiStudentFill />, title: "Students", adminPannel: false },
-        { path: "/users", btn_name: <FaChalkboardTeacher />, title: "Teachers", adminPannel: false },
-        { path: "/admin_use_only", btn_name: <MdAdminPanelSettings />, title: "Admin", adminPannel: true },
+        { path: "/login", btn_name: <FontAwesomeIcon icon={faUser} />, color: "bg-orange-200 border-orange-800 text-orange-800", title: "My Profile", adminPannel: false },
+        { path: "/todo", btn_name: <MdMessage />, color: "bg-green-200 border-green-800 text-green-800", title: "Todo Message", adminPannel: false },
+        { path: "/students", btn_name: <PiStudentFill />, color: null, title: "Students", adminPannel: false },
+        { path: "/users", btn_name: <FaChalkboardTeacher />, color: "bg-blue-200 border-blue-800 text-blue-800", title: "Teachers", adminPannel: false },
+        { path: "/admin_use_only", btn_name: <MdAdminPanelSettings />, color: "bg-yellow-200 border-yellow-800 text-yellow-800", title: "Admin", adminPannel: true },
     ];
 
     return (
@@ -26,20 +26,20 @@ const Home = () => {
                 adminLoading ?
                     <div className="grid grid-cols-2 justify-center items-center gap-2">
                         {
-                            linkButtons.filter(ele => !ele.adminPannel).map((ele, index) => <MainButton key={index} btn_name={<span className="loading loading-spinner loading-lg"></span>} title={"Loading..."}></MainButton>)
+                            linkButtons.filter(ele => !ele.adminPannel).map((ele, index) => <MainButton key={index} backgroundColorCode={ele.color} btn_name={<span className="loading loading-spinner loading-lg"></span>} title={"Loading..."}></MainButton>)
                         }
                     </div>
                     :
                     adminStatus ?
                         <div className="grid grid-cols-2 justify-center items-center gap-2">
                             {
-                                linkButtons.map((ele, index) => <Link to={ele.path} key={index}><MainButton title={ele.title} btn_name={ele.btn_name}></MainButton></Link>)
+                                linkButtons.map((ele, index) => <Link to={ele.path} key={index}><MainButton backgroundColorCode={ele.color} title={ele.title} btn_name={ele.btn_name}></MainButton></Link>)
                             }
                         </div>
                         :
                         <div className="grid grid-cols-2 justify-center items-center gap-2">
                             {
-                                linkButtons.filter(ele => !ele.adminPannel).map((ele, index) => <Link to={ele.path} key={index}><MainButton title={ele.title} btn_name={ele.btn_name}></MainButton></Link>)
+                                linkButtons.filter(ele => !ele.adminPannel).map((ele, index) => <Link to={ele.path} key={index}><MainButton backgroundColorCode={ele.color} title={ele.title} btn_name={ele.btn_name}></MainButton></Link>)
                             }
                         </div>
 

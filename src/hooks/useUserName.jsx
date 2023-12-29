@@ -7,7 +7,7 @@ const useUserName = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [loadingUserData, setLoadingUserData] = useState(true);
     const [userUid, setUserUid] = useState(null);
-
+    
     useEffect(() => {
         setLoadingUserData(true);
         const url = `https://school-student-info-client.vercel.app/teacher_info_uid/${userUid}`;

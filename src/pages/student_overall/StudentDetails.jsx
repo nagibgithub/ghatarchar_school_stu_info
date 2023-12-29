@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../contents/Loading";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
@@ -13,6 +13,7 @@ const StudentDetails = () => {
     const [stuData, setStuData] = useState(null);
     const [status, setStatus] = useState(null);
     const stuId = useParams().id;
+    const navigate = useNavigate();
 
     useEffect(() => { setLoading(true); axios.get(`https://school-student-info-client.vercel.app/student/${stuId}`).then(res => { setStuData(res.data); setStatus(res.data.active_status); setLoading(false); }).catch(err => { console.log(err); Swal.fire({ title: err.message }) }) }, [stuId]);
 
@@ -34,7 +35,7 @@ const StudentDetails = () => {
         } else {
             Swal.fire({ title: "Do you want to update?", showConfirmButton: true, showCancelButton: true, confirmButtonText: "Update" }).then(res => {
                 if (res.isConfirmed) {
-                    setLoading(true);
+                    // setLoading(true);
                     const stu_name = e.target.stuName.value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
                     const stu_birthCerNum = e.target.stuBirthCertificate.value;
                     const father_name = e.target.fatherName.value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -47,11 +48,22 @@ const StudentDetails = () => {
                     const url = `https://school-student-info-client.vercel.app/student_infoUpdate/${stuData._id}`;
                     axios.patch(url, { stu_name, stu_birthCerNum, father_name, mother_name, mobile_no, mobile_2, gender, religion, stu_dateOfBirth }).then(res => {
                         if (res.data.modifiedCount === 1) {
-                            Swal.fire({ title: "Data is updated" });
-                            setLoading(false);
+                            Swal.fire({
+                                title: "Data is updated",
+                                showDenyButton: true,
+                                denyButtonText: "All Stu List",
+                                denyButtonColor: "green",
+                                showConfirmButton: true,
+                                icon: "success"
+                            }).then(res => {
+                                if (res.isDenied) {
+                                    navigate(`/all_student_info_batch/${stuId.toString()[0] + stuId.toString()[1]}`)
+                                }
+                            });
                         } else {
-                            toast.error("Maybe Something is going wrong...!");
-                            setLoading(false);
+                            toast.error("Something is going wrong...!");
+                            Swal.fire({ title: "Info can not be updated", text: "Plz try again", icon: "warning" });
+                            // setLoading(false);
                         }
                     }).catch(err => {
                         console.log(err);
@@ -60,7 +72,7 @@ const StudentDetails = () => {
                             icon: "error",
                             text: "Data can not be updated"
                         });
-                        setLoading(false);
+                        // setLoading(false);
                     });
                 }
             });

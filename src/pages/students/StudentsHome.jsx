@@ -4,10 +4,12 @@ import { FaSearch, FaUserEdit } from "react-icons/fa";
 import MainButton from "../../contents/MainButton";
 import { Link } from "react-router-dom";
 import { FaList } from "react-icons/fa";
+import { BiSpreadsheet } from "react-icons/bi";
 
 const StudentsHome = () => {
 
     const linkButtons = [
+        { path: "/attendence", btn_name: <BiSpreadsheet />, title: "Attendence", color: "bg-purple-200 border-purple-800 text-purple-800" },
         { path: "/students/search", btn_name: <FaSearch />, title: "Stu Search", color: "bg-yellow-200 border-yellow-800 text-yellow-800" },
         { path: "/students/all_students", btn_name: <FaUserEdit />, title: "Update Info", color: "bg-sky-200 border-sky-800 text-sky-800" },
         { path: "/students/add_student", btn_name: <IoPersonAdd />, title: "Add New", color: "bg-red-200 border-red-800 text-red-800" },

@@ -7,6 +7,7 @@ import useUserName from "../../hooks/useUserName";
 import HorizonLine from "../../contents/HorizonLine";
 import PageTile from "../../contents/PageTile";
 import StudentAttendCard from "./StudentAttendCard";
+import BatchClassName from "../../contents/BatchClassName";
 
 const PresentToday = () => {
 
@@ -31,7 +32,7 @@ const PresentToday = () => {
 
     return (
         <>
-            <PageTile mainTitle={"Last Attendence"} subTitle={"Summary"}></PageTile>
+            <PageTile mainTitle={<span>Class: <BatchClassName batchNo={batchId}></BatchClassName></span>} subTitle={"Last Attendence"}></PageTile>
             <div>
                 {
                     loading ?
