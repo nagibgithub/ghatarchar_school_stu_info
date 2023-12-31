@@ -32,7 +32,7 @@ const StudentsSearch = () => {
                     <div className="flex flex-col border-2 border-sky-600 rounded-2xl px-2 pb-2 bg-sky-100 shadow-md gap-1">
                         <div className="p-2 flex flex-col justify-center items-center">
                             <label>
-                                <input placeholder="Loading...!" readOnly className="outline outline-sky-300 p-2 rounded-lg text-center font-bold text-lg" />
+                                <input defaultValue="Loading...! plz wait" readOnly className="outline outline-sky-300 bg-sky-300 p-2 rounded-lg text-center font-bold text-lg" />
                             </label>
                             <div className="mt-2 flex justify-center items-center gap-2 font-semibold">
                                 <button className={`bg-sky-300 w-32 h-12 rounded-lg shadow-md justify-center items-center flex gap-2`}><h1>All </h1><h1 className="flex justify-center items-center w-9 h-9 bg-sky-700 text-white rounded-full">0</h1></button>
