@@ -5,7 +5,7 @@ import StudentMainButtons from "../../contents/StudentMainButtons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import StudentTutionCard from "./StudentTutionCard";
+import PaymentDetails from "./PaymentDetails";
 
 const StudentPaymentHome = () => {
 
@@ -23,12 +23,10 @@ const StudentPaymentHome = () => {
     return (
         <div>
             <StudentMainButtons studentButtonLoading={stuNameLoading}></StudentMainButtons>
-            <NextAndPrevButton stuId={stuId} btnLink={'student_payment'}></NextAndPrevButton>
             <PageTile mainTitle={<span>Id: {stuId}</span>} subTitle={stuNameLoading ? "Loading...!" : stuName} link={`/students/details/${stuId}`}></PageTile>
+            <NextAndPrevButton stuId={stuId} btnLink={'student_payment'}></NextAndPrevButton>
 
-            <div>
-                <StudentTutionCard stuId={stuId}></StudentTutionCard>
-            </div>
+            <PaymentDetails></PaymentDetails>
 
 
 

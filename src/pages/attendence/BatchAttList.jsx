@@ -20,14 +20,14 @@ const BatchAttList = () => {
     }, [batchId]);
 
     return (
-        <div>
-            <PageTile subTitle={"Attendence List"} mainTitle={<span>Class: <BatchClassName batchNo={batchId}></BatchClassName></span>}></PageTile>
+        <div className="mx-2">
+            <PageTile link={`/attendence/batch_info/${batchId}`} subTitle={"Attendence List"} mainTitle={<span>Class: <BatchClassName batchNo={batchId}></BatchClassName></span>}></PageTile>
             <div className="flex flex-col gap-2 my-4">
                 {
                     loading ?
                         <Loading></Loading>
                         :
-                        <div className="collapse bg-base-200 flex flex-col gap-3">
+                        <div className="collapse flex flex-col gap-3">
                             {
                                 attenList.map((ele, index) => <AttendenListCard key={index} data={ele}></AttendenListCard>)
                             }

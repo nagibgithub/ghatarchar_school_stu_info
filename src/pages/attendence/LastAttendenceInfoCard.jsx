@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import Loading from "../../contents/Loading";
 import useDateAndTime from "../../hooks/useDateAndTime";
 import { Link } from "react-router-dom";
+import PageTile from "../../contents/PageTile";
 
 const LastAttendenceInfoCard = ({ data, batchNo }) => {
 
@@ -19,11 +19,23 @@ const LastAttendenceInfoCard = ({ data, batchNo }) => {
 
     return (
         <div className="border-2 bg-red-200 border-red-600 rounded-3xl p-5 flex justify-center items-center flex-col">
-            <h1 className="font-bold text-red-700 text-2xl my-2">Warning...!!!</h1>
+            <PageTile mainTitle={"Warning"} subTitle={"Attendence already done"} color="red"></PageTile>
             <div>
                 {
                     (loadingUserData === true || userInfo === "" || userInfo === null) ?
-                        <Loading></Loading>
+                        <div className="flex justify-center items-center gap-2 flex-col">
+                            <div className="flex justify-center items-center gap-2">
+                                <span className="loading loading-ring loading-lg"></span>
+                                <h1 className="capitalize font-bold text-center text-red-800">
+                                    <span className="loading loading-bars loading-sm"></span>
+                                    <span className="loading loading-bars loading-sm"></span>
+                                    <span className="loading loading-bars loading-sm"></span>
+                                </h1>
+                            </div>
+                            <h1 className="capitalize font-bold text-center text-red-800">Teacher Name is loading...!</h1>
+                            <h1 className="capitalize font-bold text-center text-red-800">Please Wait</h1>
+                            <Link to={`/attendence_today/${batchNo}`}><button className="btn btn-ghost btn-outline">Go to attendence details</button></Link>
+                        </div>
                         :
                         <div className="flex justify-center items-center gap-2 flex-col">
                             <div className="flex justify-center items-center gap-2">

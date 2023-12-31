@@ -22,7 +22,6 @@ import BatchAttList from "../pages/attendence/BatchAttList";
 import DayDetails from "../pages/attendence/DayDetails";
 import StudentsHome from "../pages/students/StudentsHome";
 import UsersHome from "../pages/all_users_list/UsersHome";
-import StudentsAttendence from "../pages/students/StudentsAttendence";
 import BatchStudentListAttendence from "../pages/students/BatchStudentListAttendence";
 import TeacherRoute from "./TeacherRoute";
 import UpdateUser from "../pages/loginSignin/UpdateUser";
@@ -34,6 +33,7 @@ import AdminOnlyHome from "../pages/adminOnly/AdminOnlyHome";
 import PaymentDataUploadHome from "../pages/paymentDataUpload/PaymentDataUploadHome";
 import StudentPaymentHome from "../pages/paymentDetails/StudentPaymentHome";
 import StudentsLayout from "../layouts/StudentsLayout";
+import StudentsDetailsClassList from "../pages/students/StudentsDetailsClassList";
 
 const router = createBrowserRouter([
     {
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
             { path: "/attendence", element: <PrivateRoute><Attendence></Attendence></PrivateRoute> },
             { path: "/attendence/batch_info/:batchId", element: <PrivateRoute><BatchDetails></BatchDetails></PrivateRoute> },
             { path: "/attendence/attendence_list/:batchId", element: <PrivateRoute><BatchAttList></BatchAttList></PrivateRoute> },
-            { path: "/batch/:batch", element: <PrivateRoute><BatchAttendence></BatchAttendence></PrivateRoute> },
+            { path: "/attendence/batch/:batch", element: <PrivateRoute><BatchAttendence></BatchAttendence></PrivateRoute> },
             { path: "/attendence_today/:batchId", element: <PrivateRoute><PresentToday></PresentToday></PrivateRoute> },
             { path: "/attendence/day_details/:id", element: <PrivateRoute><DayDetails></DayDetails></PrivateRoute> },
 
@@ -101,7 +101,7 @@ const router = createBrowserRouter([
             { path: "/students/details/:id", element: <PrivateRoute><TeacherRoute><StudentDetailsInfo></StudentDetailsInfo></TeacherRoute></PrivateRoute> },
             { path: "/students/search", element: <PrivateRoute><TeacherRoute><StudentsSearch></StudentsSearch></TeacherRoute></PrivateRoute> },
             { path: "/students/all_students", element: <PrivateRoute><TeacherRoute><StudentStatus></StudentStatus></TeacherRoute></PrivateRoute> },
-            { path: "/students/details_list", element: <PrivateRoute><TeacherRoute><StudentsAttendence></StudentsAttendence></TeacherRoute></PrivateRoute> },
+            { path: "/students/details_list", element: <PrivateRoute><TeacherRoute><StudentsDetailsClassList></StudentsDetailsClassList></TeacherRoute></PrivateRoute> },
             { path: "/students/details_list/:batchId", element: <PrivateRoute><TeacherRoute><BatchStudentListAttendence></BatchStudentListAttendence></TeacherRoute></PrivateRoute> },
 
             // add New Students

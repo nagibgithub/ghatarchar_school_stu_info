@@ -46,3 +46,5 @@ const StudentTutionCard = ({ stuId }) => {
 };
 
 export default StudentTutionCard;
+
+
