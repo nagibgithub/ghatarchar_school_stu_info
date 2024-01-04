@@ -34,6 +34,8 @@ import PaymentDataUploadHome from "../pages/paymentDataUpload/PaymentDataUploadH
 import StudentPaymentHome from "../pages/paymentDetails/StudentPaymentHome";
 import StudentsLayout from "../layouts/StudentsLayout";
 import StudentsDetailsClassList from "../pages/students/StudentsDetailsClassList";
+import PaymentStudentSearch from "../pages/paymentDetails/PaymentStudentSearch";
+import PaymentHome from "../pages/paymentDetails/PaymentHome";
 
 const router = createBrowserRouter([
     {
@@ -45,8 +47,6 @@ const router = createBrowserRouter([
             { path: "/", element: <PrivateRoute><Home></Home></PrivateRoute> },
 
             { path: "/login", element: <Login></Login> },
-
-
 
             // exam numbers
             { path: "/exam", element: <PrivateRoute><ExamHome></ExamHome></PrivateRoute> },
@@ -61,10 +61,10 @@ const router = createBrowserRouter([
             { path: "/admin_use_only", element: <PrivateRoute><AdminOnlyHome></AdminOnlyHome></PrivateRoute> },
 
             // Payment data upload
-            { path: "/payment_data_upload", element: <PrivateRoute><PaymentDataUploadHome></PaymentDataUploadHome></PrivateRoute> },
+            { path: "/payment_home", element: <PrivateRoute><PaymentHome></PaymentHome></PrivateRoute> },
 
-            // Payment details
-            { path: "/student_payment/:id", element: <PrivateRoute><StudentPaymentHome></StudentPaymentHome></PrivateRoute> },
+            // Payment Details
+            { path: "/payment_data_upload", element: <PrivateRoute><PaymentDataUploadHome></PaymentDataUploadHome></PrivateRoute> },
 
             // batch Name Change
             { path: "/editBatchName", element: <PrivateRoute><BatchNameChangeHome></BatchNameChangeHome></PrivateRoute> },
@@ -96,6 +96,7 @@ const router = createBrowserRouter([
         element: <StudentsLayout></StudentsLayout>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
+
             // Students 
             { path: "/students", element: <PrivateRoute><TeacherRoute><StudentsHome></StudentsHome></TeacherRoute></PrivateRoute> },
             { path: "/students/details/:id", element: <PrivateRoute><TeacherRoute><StudentDetailsInfo></StudentDetailsInfo></TeacherRoute></PrivateRoute> },
@@ -104,9 +105,14 @@ const router = createBrowserRouter([
             { path: "/students/details_list", element: <PrivateRoute><TeacherRoute><StudentsDetailsClassList></StudentsDetailsClassList></TeacherRoute></PrivateRoute> },
             { path: "/students/details_list/:batchId", element: <PrivateRoute><TeacherRoute><BatchStudentListAttendence></BatchStudentListAttendence></TeacherRoute></PrivateRoute> },
 
+            // Payment details
+            { path: "/students/student_payment_search", element: <PrivateRoute><TeacherRoute><PaymentStudentSearch></PaymentStudentSearch></TeacherRoute></PrivateRoute> },
+            { path: "/students/student_payment/:id", element: <PrivateRoute><TeacherRoute><StudentPaymentHome></StudentPaymentHome></TeacherRoute></PrivateRoute> },
+
             // add New Students
             { path: "/students/add_student", element: <PrivateRoute><TeacherRoute><AddStuHome></AddStuHome></TeacherRoute></PrivateRoute> },
             { path: "/students/add_student/batch/:batch", element: <PrivateRoute><TeacherRoute><AddStudent></AddStudent></TeacherRoute></PrivateRoute> },
+
         ]
     }
 ]);

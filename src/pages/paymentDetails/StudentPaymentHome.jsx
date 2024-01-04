@@ -24,7 +24,7 @@ const StudentPaymentHome = () => {
         <div>
             <StudentMainButtons studentButtonLoading={stuNameLoading}></StudentMainButtons>
             <PageTile mainTitle={<span>Id: {stuId}</span>} subTitle={stuNameLoading ? "Loading...!" : stuName} link={`/students/details/${stuId}`}></PageTile>
-            <NextAndPrevButton stuId={stuId} btnLink={'student_payment'}></NextAndPrevButton>
+            <NextAndPrevButton stuId={stuId} btnLink={'students/student_payment'}></NextAndPrevButton>
 
             <PaymentDetails></PaymentDetails>
 

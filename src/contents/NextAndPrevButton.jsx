@@ -52,7 +52,7 @@ const NextAndPrevButton = ({ stuId, btnLink }) => {
                         <select onChange={e => handleSelectId(e)} className="select select-info">
                             <option disabled>Choose Id</option>
                             {
-                                stuIdArr.map((ele, index) => <option key={index}>{ele}</option>)
+                                stuIdArr.map((ele, index) => <option selected={ele === stuId ? true : false} key={index}>{ele}</option>)
                             }
                         </select>
 

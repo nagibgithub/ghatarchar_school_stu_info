@@ -55,7 +55,6 @@ export default PaymentDetails;
 
 const PaymentCard = ({ payment, indexNo }) => {
 
-    console.log(payment);
     const allowKeys = ["admission", "formFee", "exam1", "exam2", "exam3", "exam4", "idCard", "diary", "registration", "other1", "other2", 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     const keysArray = Object.keys(payment).filter(ele => allowKeys.includes(ele));
     const dateFormatter = new Intl.DateTimeFormat('en-US', { day: '2-digit', month: 'short', year: "2-digit" });

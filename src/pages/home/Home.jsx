@@ -2,6 +2,7 @@ import useAdmin from "../../hooks/useAdmin";
 import MainButton from "../../contents/MainButton";
 import { PiStudentFill } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { FaSackDollar } from "react-icons/fa6";
 import { MdAdminPanelSettings, MdMessage } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +17,7 @@ const Home = () => {
         { path: "/todo", btn_name: <MdMessage />, color: "bg-green-200 border-green-800 text-green-800", title: "Todo Message", adminPannel: false },
         { path: "/students", btn_name: <PiStudentFill />, color: null, title: "Students", adminPannel: false },
         { path: "/users", btn_name: <FaChalkboardTeacher />, color: "bg-blue-200 border-blue-800 text-blue-800", title: "Teachers", adminPannel: false },
+        { path: "/payment_home", btn_name: <FaSackDollar />, color: "bg-emerald-200 border-emerald-800 text-emerald-800", title: "Payments", adminPannel: false },
         { path: "/admin_use_only", btn_name: <MdAdminPanelSettings />, color: "bg-yellow-200 border-yellow-800 text-yellow-800", title: "Admin", adminPannel: true },
     ];
 
