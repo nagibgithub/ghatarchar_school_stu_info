@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import ExcelToJsDate from "../../contents/ExcelToJsDate";
 
 const PaymentDetails = () => {
 
@@ -57,13 +58,10 @@ const PaymentCard = ({ payment, indexNo }) => {
 
     const allowKeys = ["admission", "formFee", "exam1", "exam2", "exam3", "exam4", "idCard", "diary", "registration", "other1", "other2", 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     const keysArray = Object.keys(payment).filter(ele => allowKeys.includes(ele));
-    const dateFormatter = new Intl.DateTimeFormat('en-US', { day: '2-digit', month: 'short', year: "2-digit" });
-    const formattedDate = dateFormatter.format(new Date((new Date('1900-01-01')).getTime() + (payment.dateNum - 2) * 24 * 60 * 60 * 1000));
-
     return (
         <>
             <div onClick={() => document.getElementById(payment._id).showModal()} className={`cursor-pointer grid grid-cols-4 justify-center h-8 ${indexNo % 2 === 0 ? "bg-sky-200" : "bg-sky-50"} border-x-2 border-t border-sky-400 items-center ${indexNo === 1 && "border-b-2 rounded-b-xl"}`}>
-                <h1 className="col-span-1 text-end text-sm font-bold">{formattedDate}</h1>
+                <h1 className="col-span-1 text-end text-sm font-bold">{<ExcelToJsDate excelDate={payment.dateNum}></ExcelToJsDate>}</h1>
                 <h1 className="col-span-1 text-center text-sm">{payment.receiptNo}</h1>
                 <h1 className="col-span-1 text-center text-sm font-bold">{payment.paid.toLocaleString()}</h1>
                 <h1 className="col-span-1 text-center text-sm font-bold text-red-600">{(typeof payment.preDue !== "number" || payment.preDue === 0) ? "-" : (payment.preDue * -1).toLocaleString()}</h1>
@@ -73,7 +71,7 @@ const PaymentCard = ({ payment, indexNo }) => {
             <dialog id={payment._id} className="modal">
                 <div className="bg-sky-100 p-4 rounded-3xl border-2 border-sky-700 shadow-md w-72">
                     <div className="flex justify-between items-center">
-                        <h3 className="font-bold text-lg">{formattedDate}</h3>
+                        <h3 className="font-bold text-lg">{<ExcelToJsDate excelDate={payment.dateNum}></ExcelToJsDate>}</h3>
                         <h3 className="font-bold">{payment.receiptNo}</h3>
                     </div>
                     <hr className="border border-sky-700" />
