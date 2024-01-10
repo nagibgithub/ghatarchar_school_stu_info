@@ -23,7 +23,7 @@ import DayDetails from "../pages/attendence/DayDetails";
 import StudentsHome from "../pages/students/StudentsHome";
 import UsersHome from "../pages/all_users_list/UsersHome";
 import BatchStudentListAttendence from "../pages/students/BatchStudentListAttendence";
-import TeacherRoute from "./TeacherRoute";
+import EditorRoute from "./EditorRoute";
 import UpdateUser from "../pages/loginSignin/UpdateUser";
 import StudentsSearch from "../pages/students/StudentsSearch";
 import StudentDetailsInfo from "../pages/students/StudentDetailsInfo";
@@ -61,10 +61,10 @@ const router = createBrowserRouter([
             { path: "/admin_use_only", element: <PrivateRoute><AdminOnlyHome></AdminOnlyHome></PrivateRoute> },
 
             // Payment data upload
-            { path: "/payment_home", element: <PrivateRoute><PaymentHome></PaymentHome></PrivateRoute> },
+            { path: "/payment_home", element: <PrivateRoute><EditorRoute><PaymentHome></PaymentHome></EditorRoute></PrivateRoute> },
 
             // Payment Details
-            { path: "/payment_data_upload", element: <PrivateRoute><PaymentDataUploadHome></PaymentDataUploadHome></PrivateRoute> },
+            { path: "/payment_data_upload", element: <PrivateRoute><EditorRoute><PaymentDataUploadHome></PaymentDataUploadHome></EditorRoute></PrivateRoute> },
 
             // batch Name Change
             { path: "/editBatchName", element: <PrivateRoute><BatchNameChangeHome></BatchNameChangeHome></PrivateRoute> },
@@ -78,14 +78,14 @@ const router = createBrowserRouter([
             { path: "/attendence/day_details/:id", element: <PrivateRoute><DayDetails></DayDetails></PrivateRoute> },
 
             // students information
-            { path: "/student_info/:id", element: <PrivateRoute><TeacherRoute><StudentDetails></StudentDetails></TeacherRoute></PrivateRoute> },
-            { path: "/all_student_info_batch/:batchId", element: <PrivateRoute><TeacherRoute><BatchAllStuInfo></BatchAllStuInfo></TeacherRoute></PrivateRoute> },
+            { path: "/student_info/:id", element: <PrivateRoute><EditorRoute><StudentDetails></StudentDetails></EditorRoute></PrivateRoute> },
+            { path: "/all_student_info_batch/:batchId", element: <PrivateRoute><EditorRoute><BatchAllStuInfo></BatchAllStuInfo></EditorRoute></PrivateRoute> },
 
             // all days information
             { path: "/all_days", element: <PrivateRoute><AllDay></AllDay></PrivateRoute> },
 
             // todo list
-            { path: "/todo", element: <PrivateRoute><TeacherRoute><TodoHome></TodoHome></TeacherRoute></PrivateRoute> },
+            { path: "/todo", element: <PrivateRoute><EditorRoute><TodoHome></TodoHome></EditorRoute></PrivateRoute> },
 
 
             { path: "/example", element: <ExamplePage></ExamplePage> },
@@ -98,20 +98,20 @@ const router = createBrowserRouter([
         children: [
 
             // Students 
-            { path: "/students", element: <PrivateRoute><TeacherRoute><StudentsHome></StudentsHome></TeacherRoute></PrivateRoute> },
-            { path: "/students/details/:id", element: <PrivateRoute><TeacherRoute><StudentDetailsInfo></StudentDetailsInfo></TeacherRoute></PrivateRoute> },
-            { path: "/students/search", element: <PrivateRoute><TeacherRoute><StudentsSearch></StudentsSearch></TeacherRoute></PrivateRoute> },
-            { path: "/students/all_students", element: <PrivateRoute><TeacherRoute><StudentStatus></StudentStatus></TeacherRoute></PrivateRoute> },
-            { path: "/students/details_list", element: <PrivateRoute><TeacherRoute><StudentsDetailsClassList></StudentsDetailsClassList></TeacherRoute></PrivateRoute> },
-            { path: "/students/details_list/:batchId", element: <PrivateRoute><TeacherRoute><BatchStudentListAttendence></BatchStudentListAttendence></TeacherRoute></PrivateRoute> },
+            { path: "/students", element: <PrivateRoute><EditorRoute><StudentsHome></StudentsHome></EditorRoute></PrivateRoute> },
+            { path: "/students/details/:id", element: <PrivateRoute><EditorRoute><StudentDetailsInfo></StudentDetailsInfo></EditorRoute></PrivateRoute> },
+            { path: "/students/search", element: <PrivateRoute><EditorRoute><StudentsSearch></StudentsSearch></EditorRoute></PrivateRoute> },
+            { path: "/students/all_students", element: <PrivateRoute><EditorRoute><StudentStatus></StudentStatus></EditorRoute></PrivateRoute> },
+            { path: "/students/details_list", element: <PrivateRoute><EditorRoute><StudentsDetailsClassList></StudentsDetailsClassList></EditorRoute></PrivateRoute> },
+            { path: "/students/details_list/:batchId", element: <PrivateRoute><EditorRoute><BatchStudentListAttendence></BatchStudentListAttendence></EditorRoute></PrivateRoute> },
 
             // Payment details
-            { path: "/students/student_payment_search", element: <PrivateRoute><TeacherRoute><PaymentStudentSearch></PaymentStudentSearch></TeacherRoute></PrivateRoute> },
-            { path: "/students/student_payment/:id", element: <PrivateRoute><TeacherRoute><StudentPaymentHome></StudentPaymentHome></TeacherRoute></PrivateRoute> },
+            { path: "/students/student_payment_search", element: <PrivateRoute><EditorRoute><PaymentStudentSearch></PaymentStudentSearch></EditorRoute></PrivateRoute> },
+            { path: "/students/student_payment/:id", element: <PrivateRoute><EditorRoute><StudentPaymentHome></StudentPaymentHome></EditorRoute></PrivateRoute> },
 
             // add New Students
-            { path: "/students/add_student", element: <PrivateRoute><TeacherRoute><AddStuHome></AddStuHome></TeacherRoute></PrivateRoute> },
-            { path: "/students/add_student/batch/:batch", element: <PrivateRoute><TeacherRoute><AddStudent></AddStudent></TeacherRoute></PrivateRoute> },
+            { path: "/students/add_student", element: <PrivateRoute><EditorRoute><AddStuHome></AddStuHome></EditorRoute></PrivateRoute> },
+            { path: "/students/add_student/batch/:batch", element: <PrivateRoute><EditorRoute><AddStudent></AddStudent></EditorRoute></PrivateRoute> },
 
         ]
     }

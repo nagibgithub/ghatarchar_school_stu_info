@@ -81,9 +81,9 @@ const PaymentCard = ({ paymentData, indexNo, index }) => {
         {/* Open the modal using document.getElementById('ID').showModal() method */}
             <dialog id={paymentData._id} className="modal">
                 <div className="bg-sky-100 p-4 rounded-3xl border-2 border-sky-700 shadow-md w-72">
-                    <div className="flex justify-between items-center">
-                        <h3 className="font-bold text-lg">{<ExcelToJsDate excelDate={paymentData.dateNum}></ExcelToJsDate>}</h3>
-                        <h3 className="font-bold">{paymentData.receiptNo}</h3>
+                    <div className="flex justify-center items-center gap-2">
+                        <h3 className="font-bold">{paymentData.school_id}</h3>
+                        <h3 className="font-bold">{paymentData.stu_name}</h3>
                     </div>
                     <hr className="border border-sky-700" />
                     <div className="grid grid-cols-2 gap-5">

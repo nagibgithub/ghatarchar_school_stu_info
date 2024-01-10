@@ -11,8 +11,11 @@ const Login = () => {
     const { loggedUser, logOut, googleLogin, loading } = useContext(AuthContext);
     const handleGoogleLogin = () => googleLogin();
     const handleLogout = () => {
-        Swal.fire({ title: "Are You Sure?", text: "Your want to log it out", confirmButtonText: "Log Out", showConfirmButton: true, showDenyButton: true, }).then(res => {
-            res.isConfirmed ? logOut() : Swal.fire({ title: "You are still log in", timer: 500 });
+        Swal.fire({ title: "Are You Sure?", text: "Your want to log it out", confirmButtonText: "Log Out", showConfirmButton: true, confirmButtonColor: "red", showCancelButton: true }).then(res => {
+            if (res.isConfirmed) {
+                logOut();
+                Swal.fire({ icon: "success", title: "logged out" });
+            }
         });
     };
 
