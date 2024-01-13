@@ -27,7 +27,6 @@ import EditorRoute from "./EditorRoute";
 import UpdateUser from "../pages/loginSignin/UpdateUser";
 import StudentsSearch from "../pages/students/StudentsSearch";
 import StudentDetailsInfo from "../pages/students/StudentDetailsInfo";
-import TodoHome from "../pages/todoList/TodoHome";
 import BatchNameChangeHome from "../pages/BatchNameChange/BatchNameChangeHome";
 import AdminOnlyHome from "../pages/adminOnly/AdminOnlyHome";
 import PaymentDataUploadHome from "../pages/paymentDataUpload/PaymentDataUploadHome";
@@ -36,6 +35,13 @@ import StudentsLayout from "../layouts/StudentsLayout";
 import StudentsDetailsClassList from "../pages/students/StudentsDetailsClassList";
 import PaymentStudentSearch from "../pages/paymentDetails/PaymentStudentSearch";
 import PaymentHome from "../pages/paymentDetails/PaymentHome";
+import MessageLayout from "../layouts/MessageLayout";
+import MessageHome from "../pages/message-sections/MessageHome";
+import WriteMessage from "../pages/message-sections/WriteMessage";
+import TodoMessage from "../pages/message-sections/TodoMessage";
+import TeacherMessage from "../pages/message-sections/TeacherMessage";
+import StudentMessage from "../pages/message-sections/StudentMessage";
+import WriteMessageLayout from "../layouts/WriteMessageLayout";
 
 const router = createBrowserRouter([
     {
@@ -60,10 +66,10 @@ const router = createBrowserRouter([
             // admin use only
             { path: "/admin_use_only", element: <PrivateRoute><AdminOnlyHome></AdminOnlyHome></PrivateRoute> },
 
-            // Payment data upload
+            // Payment Details
             { path: "/payment_home", element: <PrivateRoute><EditorRoute><PaymentHome></PaymentHome></EditorRoute></PrivateRoute> },
 
-            // Payment Details
+            // Payment data upload
             { path: "/payment_data_upload", element: <PrivateRoute><EditorRoute><PaymentDataUploadHome></PaymentDataUploadHome></EditorRoute></PrivateRoute> },
 
             // batch Name Change
@@ -83,10 +89,6 @@ const router = createBrowserRouter([
 
             // all days information
             { path: "/all_days", element: <PrivateRoute><AllDay></AllDay></PrivateRoute> },
-
-            // todo list
-            { path: "/todo", element: <PrivateRoute><EditorRoute><TodoHome></TodoHome></EditorRoute></PrivateRoute> },
-
 
             { path: "/example", element: <ExamplePage></ExamplePage> },
         ]
@@ -113,6 +115,28 @@ const router = createBrowserRouter([
             { path: "/students/add_student", element: <PrivateRoute><EditorRoute><AddStuHome></AddStuHome></EditorRoute></PrivateRoute> },
             { path: "/students/add_student/batch/:batch", element: <PrivateRoute><EditorRoute><AddStudent></AddStudent></EditorRoute></PrivateRoute> },
 
+        ]
+    },
+    {
+        path: "/message",
+        element: <MessageLayout></MessageLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            // message Home
+            { path: "/message", element: <PrivateRoute><EditorRoute><MessageHome></MessageHome></EditorRoute></PrivateRoute> },
+            { path: "/message/student", element: <PrivateRoute><EditorRoute><StudentMessage></StudentMessage></EditorRoute></PrivateRoute> },
+            { path: "/message/teacher", element: <PrivateRoute><EditorRoute><TeacherMessage></TeacherMessage></EditorRoute></PrivateRoute> },
+            { path: "/message/todo", element: <PrivateRoute><EditorRoute><TodoMessage></TodoMessage></EditorRoute></PrivateRoute> },
+
+        ]
+    },
+    {
+        path: "write_message",
+        element: <WriteMessageLayout></WriteMessageLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            // write message
+            { path: "/write_message", element: <PrivateRoute><EditorRoute><WriteMessage></WriteMessage></EditorRoute></PrivateRoute> }
         ]
     }
 ]);

@@ -1,6 +1,6 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -8,11 +8,12 @@ import Swal from "sweetalert2";
 const NextAndPrevButton = ({ stuId, btnLink }) => {
 
     const navigate = useNavigate();
-
+    const currentId = useParams().id;
     const stuBatchNo = stuId.toString()[0] + stuId.toString()[1];
-
     const [stuIdArr, setStuIdArr] = useState([]);
     const [stuIdArrLoading, setStuIdArrLoading] = useState(true);
+
+    console.log(currentId);
 
     useEffect(() => {
         setStuIdArrLoading(true);
@@ -49,10 +50,11 @@ const NextAndPrevButton = ({ stuId, btnLink }) => {
                             </button>
                         </Link>
 
-                        <select onChange={e => handleSelectId(e)} className="select select-info">
+                        <select defaultValue={currentId} onChange={e => handleSelectId(e)} className="select select-info">
                             <option disabled>Choose Id</option>
                             {
-                                stuIdArr.map((ele, index) => <option selected={ele === stuId ? true : false} key={index}>{ele}</option>)
+                                // stuIdArr.map((ele, index) => <option selected={ele === stuId ? true : false} key={index}>{ele}</option>)
+                                stuIdArr.map((ele, index) => <option key={index}>{ele}</option>)
                             }
                         </select>
 
