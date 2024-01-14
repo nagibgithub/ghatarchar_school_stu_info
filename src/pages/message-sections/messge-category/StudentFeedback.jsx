@@ -4,6 +4,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import BatchClassName from "../../../contents/BatchClassName";
+import useUserName from "../../../hooks/useUserName";
+import useAuth from "../../../hooks/useAuth";
+import Loading from "../../../contents/Loading";
+import toast from "react-hot-toast";
 
 const StudentFeedback = () => {
 
@@ -16,12 +20,17 @@ const StudentFeedback = () => {
     const [sendToStatusData, setSendToStatusData] = useState("pickOne");
     const [textAreaTextCount, setTextAreaTextCount] = useState(0);
     const [messageSubject, setMessageSubject] = useState("select-one");
+    const auth = useAuth();
+    const { loadingUserData, setUserUid, userInfo } = useUserName();
+
+    // console.log(auth.loggedUser.uid);
 
     useEffect(() => {
         setStuArrLoading(true);
         const url = `https://school-student-info-client.vercel.app/student_id_array`;
         axios.get(url).then(res => { setStuArr(res.data); setStuArrLoading(false) }).catch(err => { console.log(err); Swal.fire({ title: err.message }) });
-    }, []);
+        setUserUid(auth.loggedUser.uid);
+    }, [auth, setUserUid]);
 
     const getColorClass = (count) => {
         if (count >= 500) {
@@ -75,20 +84,54 @@ const StudentFeedback = () => {
                 title: "Select a subject plz...!",
                 icon: "warning"
             });
+        } else if (!userInfo.teacher_uid) {
+            toast.error("maybe something is wrong...");
+        } else if (sendToStatus === true) {
+            Swal.fire({
+                title: "Select who see your message?",
+                icon: "warning"
+            });
         } else {
-            const messageData = {};
-            messageData.messageType = "student_message";
-            messageData.student_info = selectedStudent;
-            messageData.message_subject = messageSubject;
-            messageData.message_body = e.target.message.value;
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You want to send message",
+                icon: "question",
+                showConfirmButton: true,
+                confirmButtonText: "Send",
+                showCancelButton: true
+            }).then(res => {
+                if (res.isConfirmed) {
+                    const messageData = {};
+                    messageData.messageType = "student_message";
+                    messageData.student_info = selectedStudent;
+                    messageData.sender_info = { teacher_uid: userInfo.teacher_uid, teacher_name: userInfo.teacher_name };
+                    messageData.message_sendTo = sendToStatusData;
+                    messageData.message_subject = messageSubject;
+                    messageData.message_body = e.target.message.value;
+                    messageData.message_time = new Date().getTime();
+                    const url = `https://school-student-info-client.vercel.app/message_student`;
+                    axios.post(url, messageData).then(res => {
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                title: "Message send successfully",
+                                icon: "success",
+                            })
+                        }
+                        console.log(res.data);
+                    }).catch(err => { console.log(err); });
+                }
+            })
         }
     };
 
 
     return (
+
         <div>
-            <div>
-                {
+            {
+                loadingUserData ?
+                    <Loading></Loading>
+                    :
                     searchStudent ?
                         stuArrLoading ?
                             <div className="flex flex-col border-2 border-sky-600 rounded-2xl p-2 bg-sky-100 shadow-md gap-1">
@@ -131,7 +174,7 @@ const StudentFeedback = () => {
                                                 sendToStatus ?
                                                     <div className="bg-sky-200 rounded-xl flex justify-center items-center px-4 py-2 my-2 shadow-md">
                                                         <select defaultValue={"pickOne"} onChange={e => handleMessageSendTo(e)} className="select select-bordered w-full">
-                                                            <option value={"pickOne"} disabled >Message Send To</option>
+                                                            <option value={"pickOne"} disabled >Message who see your message</option>
                                                             <option value={"head"}>Only HeadTeacher</option>
                                                             <option value={"teacher"}>All Teacher</option>
                                                         </select>
@@ -187,8 +230,7 @@ const StudentFeedback = () => {
                                     </div>
                             }
                         </div>
-                }
-            </div>
+            }
         </div>
     );
 };
