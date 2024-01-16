@@ -13,8 +13,6 @@ const NextAndPrevButton = ({ stuId, btnLink }) => {
     const [stuIdArr, setStuIdArr] = useState([]);
     const [stuIdArrLoading, setStuIdArrLoading] = useState(true);
 
-    console.log(currentId);
-
     useEffect(() => {
         setStuIdArrLoading(true);
         const url = `https://school-student-info-client.vercel.app/stu_id_arr_batch?batch=${stuBatchNo}`
@@ -23,7 +21,6 @@ const NextAndPrevButton = ({ stuId, btnLink }) => {
 
     const handleSelectId = e => {
         e.preventDefault();
-        console.log(e.target.value);
         navigate(`/${btnLink}/${e.target.value}`);
     };
 

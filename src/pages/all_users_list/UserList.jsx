@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../contents/Loading";
 import BatchClassName from "../../contents/BatchClassName";
+import UserPermissionButton from "./UserPermissionButton";
 
 const UserList = () => {
 
@@ -40,7 +41,11 @@ export default UserList;
 
 const Teacher = ({ teacher }) => {
 
-    const { teacher_photo, teacher_name, _id, permissions } = teacher;
+
+
+    const { teacher_photo, teacher_name, _id, permissions, teacher_uid } = teacher;
+
+
 
     return (
         <div className="rounded-lg shadow-md bg-sky-100 px-4 py-2">
@@ -53,30 +58,9 @@ const Teacher = ({ teacher }) => {
             </div>
             <hr className="border border-sky-600 my-2 rounded-full" />
             <div className="flex gap-3 justify-center items-center">
-                {
-                    permissions.is_admin ?
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={true}></PermissionButton>
-                        :
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={false}></PermissionButton>
-                }
-                {
-                    permissions.is_editor ?
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={true}></PermissionButton>
-                        :
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={false}></PermissionButton>
-                }
-                {
-                    permissions.is_teacher ?
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={true}></PermissionButton>
-                        :
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={false}></PermissionButton>
-                }
-                {
-                    permissions.is_visitor ?
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={true}></PermissionButton>
-                        :
-                        <PermissionButton btnName={"https://img.freepik.com/free-vector/illustration-customer-service-concept_53876-5883.jpg"} status={false}></PermissionButton>
-                }
+                <UserPermissionButton btnName={"https://raw.githubusercontent.com/nagibgithub/nagibgithub/main/teacher.png"} permissions={permissions.is_teacher} teacher_uid={teacher_uid} permissionStatus={"teacher"}></UserPermissionButton>
+                <UserPermissionButton btnName={"https://raw.githubusercontent.com/nagibgithub/nagibgithub/main/editor.png"} permissions={permissions.is_editor} teacher_uid={teacher_uid} permissionStatus={"editor"}></UserPermissionButton>
+                <UserPermissionButton btnName={"https://raw.githubusercontent.com/nagibgithub/nagibgithub/main/visitor.png"} permissions={permissions.is_visitor} teacher_uid={teacher_uid} permissionStatus={"visitor"}></UserPermissionButton>
             </div>
             <hr className="border border-sky-600 my-2 rounded-full" />
             <div>
@@ -87,12 +71,3 @@ const Teacher = ({ teacher }) => {
         </div>
     );
 };
-
-const PermissionButton = ({ btnName, status }) => {
-
-    return (
-        <div className={`cursor-pointer shadow-md border-2 ${status ? "border-sky-600" : "border-gray-200"} rounded-full w-max`}>
-            <img className={`w-8 rounded-full`} src={btnName} alt="" />
-        </div>
-    )
-}
