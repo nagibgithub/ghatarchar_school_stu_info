@@ -77,17 +77,18 @@ const StudentDetailsInfo = () => {
                                     <h1 className="font-bold text-gray-400">Admission Info is not available</h1>
                             }
                         </div>
+
+
+
+                        {/* message section */}
                         <div>
                             {
-                                stuData.message?.length === 0 ?
-                                    <>
-                                    </>
-                                    :
-                                    stuData.message.map((ele, index) => <div key={index} className="border-2 border-sky-600 bg-sky-200 rounded-3xl p-4 my-2">
-                                        <h1 className="font-semibold">{convertDateAndTime(ele.message_time, "shortTime")}, {convertDateAndTime(ele.message_time, "shortDate")}</h1>
-                                        <h1 className="capitalize text-sky-600 font-bold">{ele.message_sender}:</h1>
-                                        <h1>{ele.message}</h1>
-                                    </div>)
+                                stuData?.message?.length !== 0 &&
+                                stuData?.message?.map((ele, index) => <div key={index} className="border-2 border-sky-600 bg-sky-200 rounded-3xl p-4 my-2">
+                                    <h1 className="font-semibold">{convertDateAndTime(ele.message_time, "shortTime")}, {convertDateAndTime(ele.message_time, "shortDate")}</h1>
+                                    <h1 className="capitalize text-sky-600 font-bold">{ele.message_sender}:</h1>
+                                    <h1>{ele.message}</h1>
+                                </div>)
                             }
                         </div>
 

@@ -1,17 +1,14 @@
 import { faArrowRight, faArrowsRotate, faCircleCheck, faCircleXmark, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BiMessageAdd } from "react-icons/bi";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaFemale, FaMale } from "react-icons/fa";
-import { AuthContext } from "../../provider/AuthProvider";
 import StudentsDetailsComponents from "../../contents/StudentsDetailsComponents";
 
 const StudentList = ({ pd, changeStudentList }) => {
 
-    const { loggedUser } = useContext(AuthContext);
 
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -20,11 +17,7 @@ const StudentList = ({ pd, changeStudentList }) => {
 
     const handleStatusChange = id => {
         Swal.fire({
-            icon: "question",
-            text: `${status ? "Active" : "InActive"} to ${!status ? "Active" : "InActive"}`,
-            showConfirmButton: true,
-            confirmButtonText: `Make ${!status ? "Active" : "InActive"}`,
-            showCancelButton: true
+            icon: "question", text: `${status ? "Active" : "InActive"} to ${!status ? "Active" : "InActive"}`, showConfirmButton: true, confirmButtonText: `Make ${!status ? "Active" : "InActive"}`, showCancelButton: true
         }).then(result => {
             if (result.isConfirmed) {
                 setLoading(true);
@@ -32,6 +25,7 @@ const StudentList = ({ pd, changeStudentList }) => {
             }
         })
     };
+
     const handleStudentDelete = id => {
         Swal.fire({ title: `${pd.stu_name} will be removed...!`, text: "Are you sure?", showConfirmButton: true, showCancelButton: true, confirmButtonText: "Delete", confirmButtonColor: "#ff0000" }).then(res => {
             if (res.isConfirmed === true) {
@@ -64,58 +58,12 @@ const StudentList = ({ pd, changeStudentList }) => {
                     }
                     setDeleteLoading(false);
                 }).catch(err => {
-                    console.log(err);
-                    setDeleteLoading(false);
+                    console.log(err); setDeleteLoading(false);
                 })
             }
         }).catch(err => {
-            console.log(err);
-            setDeleteLoading(false);
+            console.log(err); setDeleteLoading(false);
         });
-    };
-
-    const handleNewMessage = stuId => {
-        loggedUser?.displayName ?
-            Swal.fire({
-                input: "textarea",
-                inputPlaceholder: "Type Your Message Here",
-                title: pd.stu_name,
-                text: `Id: ${pd.school_id}`,
-                showCancelButton: true,
-                showConfirmButton: true,
-                confirmButtonText: "Sent"
-            }).then(res => {
-                if (res.isConfirmed) {
-                    if (res.value === "") {
-                        Swal.fire({
-                            icon: "warning",
-                            title: "You write nothing",
-                            text: "No message is sent"
-                        })
-                    } else {
-                        const result = {};
-                        result.message = res.value;
-                        result.message_time = (new Date()).getTime();
-                        result.message_sender = loggedUser.displayName;
-                        result.message_mark = false;
-                        const url = `https://school-student-info-client.vercel.app/student_message/${stuId}`;
-                        axios.patch(url, result).then(res => {
-                            if (res.data.modifiedCount === 1) {
-                                Swal.fire({
-                                    title: "Message send successfully",
-                                    icon: "success",
-                                    timer: 2000
-                                });
-                            }
-                        }).catch(err => { console.log(err); Swal.fire({ title: "Message not sent", icon: "error" }) });
-                    }
-                }
-            })
-            :
-            Swal.fire({
-                title: "You have some problem",
-                timer: 1500
-            })
     };
 
     return (
@@ -161,27 +109,28 @@ const StudentList = ({ pd, changeStudentList }) => {
                     loading ?
                         <button className="btn btn-error btn-circle"><FontAwesomeIcon icon={faArrowsRotate} spin /></button>
                         :
-                        pd.batch_no === "24" ?
+                        pd.batch_no === "" ?
                             loadingDelete ?
                                 <div className="flex justify-between items-center gap-2">
                                     <button className="btn btn-info w-24"><span className="loading loading-bars loading-md"></span></button>
                                     <button className="btn btn-info">Info Update <FontAwesomeIcon icon={faArrowRight} /></button>
+                                    <button className="btn btn-info">Detail Info <FontAwesomeIcon icon={faArrowRight} /></button>
                                 </div>
                                 :
                                 <div className="flex justify-between items-center gap-2">
                                     <button onClick={() => handleStudentDelete(pd._id)} className="btn btn-error btn-circle"><FontAwesomeIcon icon={faTrash} /></button>
-                                    <button onClick={() => handleNewMessage(pd._id)} className="btn btn-circle btn-success text-xl"><BiMessageAdd /></button>
                                     <Link to={`/student_info/${pd.school_id}`}>
                                         <button className="btn btn-info">Info Update <FontAwesomeIcon icon={faArrowRight} /></button>
                                     </Link>
+                                    <Link to={`/students/details/${pd.school_id}`}><button className="btn btn-info">Detail Info <FontAwesomeIcon icon={faArrowRight} /></button></Link>
                                 </div>
                             :
                             <div className="flex justify-between items-center gap-2">
                                 <button onClick={() => handleStatusChange(pd._id)} className="btn btn-error btn-circle"><FontAwesomeIcon icon={faArrowsRotate} /></button>
-                                <button onClick={() => handleNewMessage(pd._id)} className="btn btn-circle btn-success text-xl"><BiMessageAdd /></button>
                                 <Link to={`/student_info/${pd.school_id}`}>
                                     <button className="btn btn-info">Info Update <FontAwesomeIcon icon={faArrowRight} /></button>
                                 </Link>
+                                <Link to={`/students/details/${pd.school_id}`}><button className="btn btn-info">Detail Info <FontAwesomeIcon icon={faArrowRight} /></button></Link>
                             </div>
                 }
             </div>

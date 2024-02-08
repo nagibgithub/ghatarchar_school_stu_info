@@ -1,47 +1,42 @@
-import { useState, useRef } from 'react';
+import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import Webcam from "react-webcam";
 
 const Example = () => {
-    const [customOption, setCustomOption] = useState("");
-    const customOptionInputRef = useRef(null);
 
-    const handleCustomOptionFocus = () => {
-        console.log("focus");
-        // Select the content of the input when it receives focus
-        customOptionInputRef.current.select();
+    const [imageSrc, setImageSrs] = useState(null);
+
+    const webcamRef = React.useRef(null);
+    const [facingMode, setFacingMode] = useState('user');
+    const capture = () => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        setImageSrs(imageSrc);
+    };
+
+    const switchCamera = () => {
+        setFacingMode((prevFacingMode) =>
+            prevFacingMode === 'user' ? 'environment' : 'user'
+        );
+    };
+
+    const videoConstraints = {
+        facingMode: facingMode,
     };
 
     return (
-        <form >
-            <label htmlFor={"option-1"} className="flex gap-2 cursor-pointer">
-                <input className="radio checked:bg-sky-600" type="radio" name="chooseOption" id={"option-1"} value={"option-1"} />
-                <h1 className="login-input-label capitalize">{"option-1"}</h1>
-            </label>
-            <label htmlFor={"option-2"} className="flex gap-2 cursor-pointer">
-                <input className="radio checked:bg-sky-600" type="radio" name="chooseOption" id={"option-2"} value={"option-2"} />
-                <h1 className="login-input-label capitalize">{"option-2"}</h1>
-            </label>
-            <label htmlFor="customOption" className="flex gap-2 cursor-pointer items-center">
-                <input
-                    ref={customOptionInputRef}
-                    className="radio checked:bg-sky-600"
-                    type="radio"
-                    name="chooseOption"
-                    id="customOption"
-                    value={customOption}
-                />
-                <input
-                    onChange={(e) => setCustomOption(e.target.value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" "))}
-                    onFocus={handleCustomOptionFocus}
-                    placeholder="Or type custom option"
-                    className="login-input capitalize"
-                    type="text"
-                />
-            </label>
-            <div>
-                <input className='btn btn-success' type="submit" value="Submit" />
+        <div>
+            <Webcam audio={false} ref={webcamRef} videoConstraints={videoConstraints}></Webcam>
+            <div className="flex gap-2 justify-center items-center my-2">
+                <button className="btn btn-circle btn-info shadow-md shadow-sky-700" onClick={capture}><FontAwesomeIcon icon={faCamera} /></button>
+                <button className="btn btn-circle btn-info shadow-md shadow-sky-700" onClick={switchCamera}><FontAwesomeIcon icon={faRotate} /></button>
             </div>
-        </form>
+            <div>
+                <img src={imageSrc} alt="" />
+            </div>
+        </div>
     );
-}
+
+};
 
 export default Example;

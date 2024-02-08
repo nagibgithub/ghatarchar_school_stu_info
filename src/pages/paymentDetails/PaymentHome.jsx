@@ -21,8 +21,6 @@ const PaymentHome = () => {
         }).catch(err => { console.log(err); });
     }, []);
 
-    console.log(paymentDateArray);
-
     return (
         <div className="mx-2">
             <PageTile mainTitle={"All Payment"}></PageTile>
@@ -42,9 +40,9 @@ const PaymentHome = () => {
                                     <div >
                                         <div className="grid grid-cols-4 text-center text-sm font-bold border-2 border-sky-500 rounded-t-lg bg-sky-300">
                                             <h1 className="text-start pl-3">Id</h1>
-                                            <h1>Amount</h1>
                                             <h1>Receipt</h1>
-                                            <h1 className="text-end pr-2">Due</h1>
+                                            <h1 className="text-end">Amount</h1>
+                                            <h1 className="text-center">Due</h1>
                                         </div>
                                     </div>
                                     {
@@ -65,8 +63,6 @@ const PaymentCard = ({ paymentData, indexNo, index }) => {
 
     const allowKeys = ["admission", "formFee", "exam1", "exam2", "exam3", "exam4", "idCard", "diary", "registration", "other1", "other2", 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     const keysArray = Object.keys(paymentData).filter(ele => allowKeys.includes(ele));
-
-    console.log(paymentData);
 
     return (
         <>
@@ -131,13 +127,3 @@ const PaymentCard = ({ paymentData, indexNo, index }) => {
 
     );
 };
-
-// <div className="collapse bg-base-200">
-//   <input type="checkbox" />
-//   <div className="collapse-title text-xl font-medium">
-//     Click me to show/hide content
-//   </div>
-//   <div className="collapse-content">
-//     <p>hello</p>
-//   </div>
-// </div>

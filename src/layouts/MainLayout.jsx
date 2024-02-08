@@ -13,12 +13,12 @@ const MainLayout = () => {
                 <Outlet></Outlet>
                 <Toaster />
             </div>
+            <Footer></Footer>
             <div className="fixed bottom-4 right-4">
                 <Link to={"/write_message"}>
                     <button className="btn btn-info btn-circle btn-active shadow-lg shadow-sky-600"><FontAwesomeIcon icon={faPen} shake rotate={180} color="blue" /></button>
                 </Link>
             </div>
-            <Footer></Footer>
         </div>
     );
 };

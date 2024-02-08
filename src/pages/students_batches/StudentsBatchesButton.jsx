@@ -19,23 +19,25 @@ const StudentsBatchesButton = ({ link = "/", btnLink, batchArr, mainTitle, subTi
     }, []);
 
     return (
-        <div className="flex flex-col justify-center items-center gap-2 my-5">
+        <>
             <StudentMainButtons studentButtonLoading={loadingBatch}></StudentMainButtons>
-            {
-                loadingBatch ?
-                    <Loading></Loading>
-                    :
-                    errMessage !== null ?
-                        <h1 className="text-3xl font-bold text-red-600">{errMessage}</h1>
+            <div className="flex flex-col justify-center items-center gap-2 mb-2">
+                {
+                    loadingBatch ?
+                        <Loading></Loading>
                         :
-                        <>
-                            <PageTile link={link} mainTitle={mainTitle} subTitle={subTitle}></PageTile>
-                            {
-                                batches.map((pd, index) => <Link className={batchArr === undefined ? "contents" : batchArr.includes(pd) ? "contents" : "hidden"} key={index} to={`${btnLink}/${pd}`}><button disabled={batchArr === undefined ? false : batchArr.includes(pd) ? false : true} onClick={() => sessionStorage.clear("id")} className="btn btn-success w-40 font-bold text-lg">{batchName[pd]}</button></Link>)
-                            }
-                        </>
-            }
-        </div>
+                        errMessage !== null ?
+                            <h1 className="text-3xl font-bold text-red-600">{errMessage}</h1>
+                            :
+                            <>
+                                <PageTile link={link} mainTitle={mainTitle} subTitle={subTitle}></PageTile>
+                                {
+                                    batches.map((pd, index) => <Link className={batchArr === undefined ? "contents" : batchArr.includes(pd) ? "contents" : "hidden"} key={index} to={`${btnLink}/${pd}`}><button disabled={batchArr === undefined ? false : batchArr.includes(pd) ? false : true} onClick={() => sessionStorage.clear("id")} className="btn btn-success w-40 font-bold text-lg">{batchName[pd]}</button></Link>)
+                                }
+                            </>
+                }
+            </div>
+        </>
     );
 };
 

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../../contents/Loading";
 import useAdmin from "../../hooks/useAdmin";
 import Home from "../home/Home";
-import { faEdit, faMoneyBillTransfer } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faList, faMoneyBillTransfer } from "@fortawesome/free-solid-svg-icons";
 import PageTile from "../../contents/PageTile";
 import MainButton from "../../contents/MainButton";
 import { Link } from "react-router-dom";
@@ -13,7 +13,8 @@ const AdminOnlyHome = () => {
     const adminButtons = [
         { path: '/editBatchName', icon: <FontAwesomeIcon icon={faEdit} />, title: "Batch Name" },
         { path: "/users", icon: <FaChalkboardTeacher />, title: "Teachers" },
-        { path: "/payment_data_upload", icon: <FontAwesomeIcon icon={faMoneyBillTransfer}/>, title: "Tution Upload" },
+        { path: "/payment_data_upload", icon: <FontAwesomeIcon icon={faMoneyBillTransfer} />, title: "Tution Upload" },
+        { path: "/stu_new_attendence", icon: <FontAwesomeIcon icon={faList} />, title: "Attendence New" },
     ];
 
     const { adminLoading, adminStatus } = useAdmin();

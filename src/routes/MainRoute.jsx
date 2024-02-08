@@ -42,6 +42,11 @@ import TodoMessage from "../pages/message-sections/TodoMessage";
 import TeacherMessage from "../pages/message-sections/TeacherMessage";
 import StudentMessage from "../pages/message-sections/StudentMessage";
 import WriteMessageLayout from "../layouts/WriteMessageLayout";
+import StudentAdmissionMessage from "../pages/message-sections/StudentAdmissionMessage";
+import AllAdmissionInfo from "../pages/message-sections/AllAdmissionInfo";
+import AttendenceNewHome from "../pages/NewAttendence/AttendenceHome/AttendenceNewHome";
+import AdminRoute from "./AdminRoute";
+import StudentMessageGeneralNew from "../pages/message-sections/StudentMessageGeneralNew";
 
 const router = createBrowserRouter([
     {
@@ -125,18 +130,29 @@ const router = createBrowserRouter([
             // message Home
             { path: "/message", element: <PrivateRoute><EditorRoute><MessageHome></MessageHome></EditorRoute></PrivateRoute> },
             { path: "/message/student", element: <PrivateRoute><EditorRoute><StudentMessage></StudentMessage></EditorRoute></PrivateRoute> },
+            { path: "/message/student/admission", element: <PrivateRoute><EditorRoute><StudentAdmissionMessage></StudentAdmissionMessage></EditorRoute></PrivateRoute> },
+            { path: "/message/student/all_admission", element: <PrivateRoute><EditorRoute><AllAdmissionInfo></AllAdmissionInfo></EditorRoute></PrivateRoute> },
+            { path: "/message/student/general/new", element: <PrivateRoute><EditorRoute><StudentMessageGeneralNew></StudentMessageGeneralNew></EditorRoute></PrivateRoute> },
             { path: "/message/teacher", element: <PrivateRoute><EditorRoute><TeacherMessage></TeacherMessage></EditorRoute></PrivateRoute> },
             { path: "/message/todo", element: <PrivateRoute><EditorRoute><TodoMessage></TodoMessage></EditorRoute></PrivateRoute> },
 
         ]
     },
     {
-        path: "write_message",
+        path: "/write_message",
         element: <WriteMessageLayout></WriteMessageLayout>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             // write message
             { path: "/write_message", element: <PrivateRoute><EditorRoute><WriteMessage></WriteMessage></EditorRoute></PrivateRoute> }
+        ]
+    },
+    {
+        path: "/stu_new_attendence",
+        errorElement: <ErrorPage></ErrorPage>,
+        element: <MainLayout></MainLayout>,
+        children: [
+            { path: "/stu_new_attendence", element: <PrivateRoute><AdminRoute><AttendenceNewHome></AttendenceNewHome></AdminRoute></PrivateRoute> },
         ]
     }
 ]);
